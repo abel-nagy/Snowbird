@@ -64,3 +64,16 @@
          2. Type amount
          3. Set description (can be left blank)
          4. Set date (can be left blank to default to current date) (only applicable to local transaction)
+
+
+## The Database
+### Name: Snowbird
+1. Currency
+   1. from (The currency id from which we want to convert)
+      * varchar
+      * 3 character long
+   2. to (The currency id to which we want to convert)
+      * varchar
+      * 3 character long
+   3. multiplier (The value which the program will use to convert the currency)
+      * int
