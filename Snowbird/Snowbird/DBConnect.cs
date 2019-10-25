@@ -71,23 +71,56 @@ namespace Snowbird {
         }
 
         // Insert statement
-        public void Insert() {
+        public void Insert(string query) {
+            // Open connection
+            if(this.OpenConnection() == true) {
+                // Create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, connection);
 
+                // Execute command
+                cmd.ExecuteNonQuery();
+
+                // Close connection
+                this.CloseConnection();
+            }
         }
 
         // Update statement
-        public void Update() {
+        public void Update(string query) {
+            // Open connection
+            if (this.OpenConnection() == true) {
+                //Create MySql command
+                MySqlCommand cmd = new MySqlCommand();
 
+                // Assign the query using CommandText
+                cmd.CommandText = query;
+
+                // Assign the connection using Connection
+                cmd.Connection = connection;
+
+                // Execute query
+                cmd.ExecuteNonQuery();
+
+                // Close connection
+                this.CloseConnection();
+            }
         }
 
         // Delete statement
-        public void Delete() {
-
+        public void Delete(string query) {
+            // Open connection
+            if (this.OpenConnection() == true) {
+                // Create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                this.CloseConnection();
+            }
         }
 
         // Select statement
-        public List<string>[] Select() {
-            return new List<string>[1];
+        public List<string>[] Select(string query) {
+            // Create a list to store the result
+            List<string>[] list;
         }
 
         // Count statement
