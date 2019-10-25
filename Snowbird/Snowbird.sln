@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snowbird", "Snowbird\Snowbird.csproj", "{3E07DF0B-464A-4287-829A-52597D2D4BBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E07DF0B-464A-4287-829A-52597D2D4BBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E07DF0B-464A-4287-829A-52597D2D4BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E07DF0B-464A-4287-829A-52597D2D4BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E07DF0B-464A-4287-829A-52597D2D4BBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D39D0031-79C9-4B0E-B903-F1AEE8B1C9EE}
+	EndGlobalSection
+EndGlobal
