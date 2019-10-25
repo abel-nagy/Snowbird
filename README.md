@@ -10,7 +10,6 @@
 2. Wallet:
     - Type:
       1. Wallet (only one per user)
-         - Description (not necessary)
       2. Bank Account (any number you want)
          - Name (Bank Account name)
          - Account Number (only if actual Bank Account)
