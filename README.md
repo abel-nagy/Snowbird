@@ -1,11 +1,11 @@
-#Snowbird Wallet Application
+# Snowbird Wallet Application
 
-##1. User identification: 
-    ###I. Username/email
-        - No spaces, only english alphabet characters
-        - Case insensitive
-    ###II. Password
-        - Securing with algorithm
+## 1. User identification: 
+      1. Username/email
+         - No spaces, only english alphabet characters
+         - Case insensitive
+      2. II. Password
+         - Securing with algorithm
 ##2. Wallet:
     ###I. Type:
         - Wallet (only one per user)
