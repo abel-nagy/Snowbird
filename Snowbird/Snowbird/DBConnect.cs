@@ -23,6 +23,8 @@ namespace Snowbird {
             this.database = database;
             this.uid = uid;
             this.password = password;
+            
+            // Valami más
 
             string connectionString;
             connectionString = "SERVER=" + server + ";DATABASE=" + database + ";UID=" + uid + ";PASSWORD=" + password + ";";
