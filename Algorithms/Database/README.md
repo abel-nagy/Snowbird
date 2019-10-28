@@ -24,3 +24,8 @@
   - fromWallet_id = {9 digit INT >= 100'000'000}
   - toWallet_id = {9 digit INT >= 100'000'000}
   - description = {max 20 long VARCHAR}
+
+## Currencies
+  - from = {exactly 3 long VARCHAR}
+  - to = {exactly 3 long VARCHAR}
+  - multiplier = {FLOAT}
