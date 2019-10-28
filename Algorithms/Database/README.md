@@ -1,9 +1,9 @@
 ## Users
-   - **id** = {9 digit INT >= 100'000'000} => PRIMARY KEY
+   - **id** = {9 digit INT >= 100'000'000, NOT NULL} => PRIMARY KEY
    - email = {max 40 long VARCHAR}
-   - username = {max 20 long VARCHAR}
-   - password = {exactly 256 long VARCHAR}
-   - created_at = {DATETIME}
+   - username = {max 20 long VARCHAR, NOT NULL}
+   - password = {exactly 256 long VARCHAR, NOT NULL}
+   - created_at = {DATETIME, NOT NULL}
 
 ## Wallets
   - **id** = {9 digit INT >= 100'000'000, NOT NULL} => PRIMARY KEY
@@ -26,6 +26,6 @@
   - description = {max 20 long VARCHAR}
 
 ## Currencies
-  - from = {exactly 3 long VARCHAR}
-  - to = {exactly 3 long VARCHAR}
-  - multiplier = {FLOAT}
+  - from = {exactly 3 long VARCHAR, NOT NULL}
+  - to = {exactly 3 long VARCHAR, NOT NULL}
+  - multiplier = {FLOAT, NOT NULL}
