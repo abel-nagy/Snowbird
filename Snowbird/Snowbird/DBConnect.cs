@@ -120,11 +120,11 @@ namespace Snowbird {
         }
 
         // Select statement
-        public List<string>[] Select(string query) {
+        /*public List<string>[] Select(string query) {
             // Create a list to store the result
             List<string>[] list;
         }
-
+        */
         // Count statement
         public int Count() {
             return 0;
