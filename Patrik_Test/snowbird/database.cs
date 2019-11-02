@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Security.Cryptography;
-using MySql.Data.MySqlClient;
+using System.Security.Cryptography; // a jelszót titkosításhoz kell
+using MySql.Data.MySqlClient; // az mysql adatbázishoz kell
 
 namespace snowbird
 {
@@ -14,6 +14,8 @@ namespace snowbird
         private string dbIp, dbPort, dbUsername, dbPassword, dbDatabase;
         private MySqlConnection dbConnection;
 
+        // a változóknak értékadás
+        //                  127.0.0.1       3306              root                              snowbird
         public Database(string dbIp, string dbPort, string dbUsername, string dbPassword, string dbDatabase)
         {
             this.dbIp = dbIp;
@@ -24,34 +26,33 @@ namespace snowbird
         }
 
 
-        private bool ConnectDb()
+        // csatlakozás az adatbázishoz
+        private bool ConnectionDB()
         {
-
             string MySqlConnectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=snowbird";
-            //string MySqlConnectionString = "datasource=" + dbIp + "port=" + dbPort + ";username=" + dbUsername + ";password=;database=" + dbDatabase;
             dbConnection = new MySqlConnection(MySqlConnectionString);
 
             try
             {
                 dbConnection.Open();
-
-                return true;
-
+                return true; // ha sikerült a csatlakozás akkor true értéked ad vissza
             }
             catch (Exception e)
             {
-                Console.WriteLine("Query error: " + e.Message);
-                return false;
+                Console.WriteLine("Query error: " + e.Message); // hibaüzenet
+                return false; // ha nem sikerült a csatlakozás akkor false értéket ad vissza
             }
         }
 
 
-        //Users tábla lekérdezése ( az idő és dátum rossz vmi-ért)
+        //Users tábla lekérdezése
         public void Users()
         {
+            // a query váltiozóba tesszük az SQL lekérdezést
             string query = "SELECT * FROM users;";
 
-            if (this.ConnectDb() == true)
+
+            if (this.ConnectionDB() == true) //megnézzük hogy a ConnectionDB true értéket ad e visszia
             {
                 MySqlCommand commandDb = new MySqlCommand(query, dbConnection);
                 commandDb.CommandTimeout = 60;
@@ -59,20 +60,16 @@ namespace snowbird
 
                 if (myReader.HasRows)
                 {
-                    Console.WriteLine("Itt vannak a faszom adatok");
+                    Console.WriteLine("###   Users tábla adatai   ###");
                     while (myReader.Read())
                     {
-                        Console.WriteLine(myReader.GetString(0) + "   " + myReader.GetString(1) + "   " + myReader.GetString(2) + "   " + myReader.GetString(3));
+                        Console.WriteLine(myReader.GetString(0) + "   " + myReader.GetString(1) + "   " + myReader.GetString(2) + "   " + myReader.GetString(3)); // kiiratja az adatokat ( az idő nem jó valamiért!)
                     }
                 }
                 else
                 {
                     Console.WriteLine("Query succesfully executed");
                 }
-            }
-            else
-            {
-                Console.WriteLine("Rossz a kapcsolat");
             }
         }
 
@@ -81,22 +78,17 @@ namespace snowbird
         {
             MD5 md5 = new MD5CryptoServiceProvider();
 
-            //compute hash from the bytes of text  
             md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
 
-            //get hash result after compute it  
             byte[] result = md5.Hash;
 
             StringBuilder strBuilder = new StringBuilder();
             for (int i = 0; i < result.Length; i++)
             {
-                //change it into 2 hexadecimal digits  
-                //for each byte  
                 strBuilder.Append(result[i].ToString("x2"));
             }
             return strBuilder.ToString();
         }
-
 
         //regisztráció
         public void Registration(string email, string username, string password)
@@ -105,18 +97,17 @@ namespace snowbird
             DateTime myDateTime = DateTime.Now;
             string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
+            // a query string tipusú változóba beleirjuk a parancsot.
+            // a jelszót titkosítjuk a passwordMD5-el
             string query = "INSERT INTO `users` (`user_id`, `email`, `username`, `password`, `created_at`) VALUES(NULL, '" + email + "', '" + username + "', '" + passwordMD5(password) + "', '" + sqlFormattedDate + "');";
-            if (this.ConnectDb() == true)
+            if (this.ConnectionDB() == true) //megnézzük hogy a ConnectionDB true értéket ad e visszia
             {
                 MySqlCommand commandDb = new MySqlCommand(query, dbConnection);
                 commandDb.CommandTimeout = 60;
                 MySqlDataReader myReader = commandDb.ExecuteReader();
             }
-            else
-            {
-                Console.WriteLine("Rossz a kapcsolat");
-            }
         }
+
 
 
     }

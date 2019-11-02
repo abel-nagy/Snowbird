@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "snowbird", "snowbird.csproj", "{FECE1000-A66B-4EC6-B49B-48F7A4EA764E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "snowbird", "snowbird.csproj", "{5FB890F9-F0DC-41CF-85EC-A91DFC0B80FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FECE1000-A66B-4EC6-B49B-48F7A4EA764E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FECE1000-A66B-4EC6-B49B-48F7A4EA764E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FECE1000-A66B-4EC6-B49B-48F7A4EA764E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FECE1000-A66B-4EC6-B49B-48F7A4EA764E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FB890F9-F0DC-41CF-85EC-A91DFC0B80FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FB890F9-F0DC-41CF-85EC-A91DFC0B80FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FB890F9-F0DC-41CF-85EC-A91DFC0B80FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FB890F9-F0DC-41CF-85EC-A91DFC0B80FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {3C3534B2-39CB-4221-9C89-8418E3209732}
+		SolutionGuid = {68F1A009-8F70-4829-A6F4-4742E4359465}
 	EndGlobalSection
 EndGlobal

@@ -12,14 +12,28 @@ namespace snowbird
     {
         static void Main(string[] args)
         {
-
-            Database db = new Database("127.0.0.1", "3306", "root", "", "snowbird"); //ezek még nem működnek
-
-            Console.WriteLine("###  HÁZIPÉNZTÁR  ###\n");
-            Console.WriteLine("Regiszráció = 1");
-            Console.WriteLine("Users lekérdezése = 2");
-
-
+            
+            menuClass DB = new menuClass();
+            DB.mainMenu();
+            
+            int choose;
+            do
+            {
+                Console.Write("Választ: "); choose = Int32.Parse(Console.ReadLine());
+                switch (choose)
+                {
+                    case 1:
+                        DB.registrationMenu();
+                        break;
+                    case 2:
+                        DB.usersMenu();
+                        break;
+                    case 9:
+                        DB.mainMenu();
+                        break;
+                }
+            }
+            while (choose != 0);
 
             Console.ReadKey();
         }
