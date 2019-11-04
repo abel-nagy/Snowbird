@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -12,11 +13,15 @@ namespace Snowbird
             db = new DBConnect("127.0.0.1", "snowbird", "root", "");
 
             /* Do shit in OOP, yoo!!! */
-            MenuShit.Login_Main();
+            //MenuShit.Login_Main();
             /* END Do shit in OOP, yoo!!! */
             
-            //query = "DELETE FROM users WHERE username = 'boobsaregay';";
-            //Console.WriteLine(query);
+            List<string>[] asd = db.Select("SELECT email, username FROM users WHERE created_at LIKE '%11-04%' ORDER BY id;", 2, new string[2]{"email", "username"});
+
+            for (int i = 0; i < db.Count("SELECT count(*) FROM `users` WHERE created_at LIKE '%11-04%' ;"); i++) {
+                Console.Write("email: {0}  username: {1}\n", asd[0][i], asd[1][i]);
+            }
+            
         }
 
         public static string ComputeSha256Hash(string rawData) {

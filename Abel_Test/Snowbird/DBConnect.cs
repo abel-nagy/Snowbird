@@ -82,14 +82,17 @@ namespace Snowbird {
                 this.CloseConnection();
             }
         }
-        /*
+        
         // Select statement
-        public List<string> Select(string query) {
+        public List<string>[] Select(string query, int columns, string[] columnsName) {
             // Create a list to store the result
-            List<string> records = new List<string>();
+            List<string>[] records = new List<string>[columns];
+            for(int i = 0; i < columns; i++) {
+                records[i] = new List<string>();
+            }
 
             // Open connection
-            if( this.OpenConnection() ) {
+            if ( this.OpenConnection() ) {
                 // Create command
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 // Create a data reader amd Execute the command
@@ -98,7 +101,9 @@ namespace Snowbird {
                 // Read the data and sotre them in the ArrayList
                 if (dataReader.HasRows) {
                     while (dataReader.Read()) {
-                        records.Add(dataReader[]);
+                        for(int i = 0; i < columns; i++) {
+                            records[i].Add(dataReader[columnsName[i]] + "");
+                        }
                     }
                 }
 
@@ -110,7 +115,7 @@ namespace Snowbird {
 
             // Return list to be displayed
             return records;
-        }*/
+        }
         
         // Count statement
         public int Count(string query) {
