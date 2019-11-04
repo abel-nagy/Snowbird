@@ -3,6 +3,7 @@
 ## User identification
 1. Registration
    - Ask for e-mail (not necessary, used for password reset)
+     * Make sure it's email like ("example@domain.TLD")
    - Ask for username
      * Make sure input only contains numbers and letters from the english alphabet
      * Program sends request to the server right away to check if there's an existing entry in the database for the given username
