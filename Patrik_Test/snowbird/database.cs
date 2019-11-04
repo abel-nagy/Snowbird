@@ -63,7 +63,7 @@ namespace snowbird
                     Console.WriteLine("###   Users tábla adatai   ###");
                     while (myReader.Read())
                     {
-                        Console.WriteLine(myReader.GetString(0) + "   " + myReader.GetString(1) + "   " + myReader.GetString(2) + "   " + myReader.GetString(3)); // kiiratja az adatokat ( az idő nem jó valamiért!)
+                        Console.WriteLine(myReader.GetString(0) + "\n  " + myReader.GetString(1) + "\n  " + myReader.GetString(2) + "\n  " + myReader.GetString(3) + "\n  " + myReader.GetDateTime(4).ToString("yyyy-MM-dd HH:mm:ss")); // kiiratja az adatokat ( az idő nem jó valamiért!)
                     }
                 }
                 else
