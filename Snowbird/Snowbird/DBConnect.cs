@@ -1,11 +1,7 @@
 ﻿// Add MySql Library
 using MySql.Data.MySqlClient;
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Snowbird {
     class DBConnect {
@@ -72,10 +68,10 @@ namespace Snowbird {
             }
         }
 
-        // Insert statement
-        public void Insert(string query) {
+        // Insert, Update, Delete statements (No return values (Non Query))
+        public void NonQuery(string query) {
             // Open connection
-            if(this.OpenConnection() == true) {
+            if (this.OpenConnection() == true) {
                 // Create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
@@ -86,48 +82,54 @@ namespace Snowbird {
                 this.CloseConnection();
             }
         }
+        /*
+        // Select statement
+        public List<string> Select(string query) {
+            // Create a list to store the result
+            List<string> records = new List<string>();
 
-        // Update statement
-        public void Update(string query) {
             // Open connection
-            if (this.OpenConnection() == true) {
-                //Create MySql command
-                MySqlCommand cmd = new MySqlCommand();
+            if( this.OpenConnection() ) {
+                // Create command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                // Create a data reader amd Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                // Assign the query using CommandText
-                cmd.CommandText = query;
+                // Read the data and sotre them in the ArrayList
+                if (dataReader.HasRows) {
+                    while (dataReader.Read()) {
+                        records.Add(dataReader[]);
+                    }
+                }
 
-                // Assign the connection using Connection
-                cmd.Connection = connection;
+                // Close Data Reader
+                dataReader.Close();
+                // Close Connection
+                this.CloseConnection();
+            }
 
-                // Execute query
-                cmd.ExecuteNonQuery();
+            // Return list to be displayed
+            return records;
+        }*/
+        
+        // Count statement
+        public int Count(string query) {
+
+            int Count = -1;
+
+            // Open connection
+            if( this.OpenConnection() ) {
+                // Create MySql command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                // ExecuteScalar will return one value
+                Count = int.Parse(cmd.ExecuteScalar() + "");
 
                 // Close connection
                 this.CloseConnection();
             }
-        }
 
-        // Delete statement
-        public void Delete(string query) {
-            // Open connection
-            if (this.OpenConnection() == true) {
-                // Create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
-                this.CloseConnection();
-            }
-        }
-
-        // Select statement
-        /*public List<string>[] Select(string query) {
-            // Create a list to store the result
-            List<string>[] list;
-        }
-        */
-        // Count statement
-        public int Count() {
-            return 0;
+            return Count;
         }
 
         // Backup

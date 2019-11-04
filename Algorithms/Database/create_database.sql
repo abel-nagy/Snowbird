@@ -8,7 +8,7 @@ CREATE TABLE `snowbird`.`users`(
     `username` VARCHAR(20) NOT NULL, 
     `password` VARCHAR(256) NOT NULL, 
     `created_at` DATETIME NOT NULL, 
-    PRIMARY KEY (`user_id`)
+    PRIMARY KEY (`id`)
 ) ENGINE = INNODB;
 
 ALTER TABLE users AUTO_INCREMENT=100000000; -- Making the IDs auto increment start with the lowest 9 digit number
