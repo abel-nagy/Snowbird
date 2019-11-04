@@ -3,13 +3,13 @@ CREATE DATABASE snowbird CHARACTER SET utf8;
 USE snowbird;
 
 CREATE TABLE `snowbird`.`users`( 
-    `user_id` INT(9) NOT NULL AUTO_INCREMENT, 
+    `id` INT(9) NOT NULL AUTO_INCREMENT, 
     `email` VARCHAR(40), 
     `username` VARCHAR(20) NOT NULL, 
     `password` VARCHAR(256) NOT NULL, 
     `created_at` DATETIME NOT NULL, 
     PRIMARY KEY (`user_id`)
-) ENGINE = InnoDB;
+) ENGINE = INNODB;
 
 ALTER TABLE users AUTO_INCREMENT=100000000; -- Making the IDs auto increment start with the lowest 9 digit number
 
@@ -24,6 +24,13 @@ CREATE TABLE `snowbird`.`wallets`(
     `description` VARCHAR(20), 
     `created_at` DATETIME NOT NULL, 
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
+) ENGINE = INNODB;
 
 ALTER TABLE wallets AUTO_INCREMENT=100000000; -- Making the IDs auto increment start with the lowest 9 digit number
+
+CREATE TABLE `snowbird`.`currencies`(
+    `from` VARCHAR(3) NOT NULL,
+    `to` VARCHAR(3) NOT NULL,
+    `multiplier` FLOAT NOT NULL,
+    `updated` DATETIME NOT NULL
+) ENGINE = INNODB;

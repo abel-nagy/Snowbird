@@ -32,6 +32,7 @@ Table currencies {
   from varchar
   to varchar
   multiplier float
+  updated datetime
  }
  
  Ref: W.user_id > U.id
