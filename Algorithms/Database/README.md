@@ -29,3 +29,4 @@
   - from = {exactly 3 long VARCHAR, NOT NULL}
   - to = {exactly 3 long VARCHAR, NOT NULL}
   - multiplier = {FLOAT, NOT NULL}
+  - updated = {DATETIME, NOT NULL}
