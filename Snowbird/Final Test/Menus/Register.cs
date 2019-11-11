@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
 
 namespace Final_Test.Menus {
     public static class Register {
@@ -16,12 +17,16 @@ namespace Final_Test.Menus {
 
                 if (email != "") {
                     string pattern = "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
-                    while (!Regex.IsMatch(email, pattern)) {
+                    while (!Regex.IsMatch(email, pattern))
+                    {
                         Console.Clear();
                         Console.Write("E-mail (used for password reset. Not required but advised): ");
                         email = Console.ReadLine();
-                    }
-                    // Check here, if the email is already in use
+
+                        
+                        // Check here, if the email is already in use
+                        //email check (Patrik)
+                    }    
                 }
 
                 while (true) {
@@ -44,6 +49,9 @@ namespace Final_Test.Menus {
                 }
 
                 Console.Write("Your data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
+                MySqlCommand n = new MySqlCommand("SELECT count(*) FROM users WHERE email='" + email + "';");
+                var result = n.ExecuteScalar();
+                Console.WriteLine(result);
                 if (Console.ReadLine() == "y") break;
             }
 
