@@ -12,7 +12,7 @@ namespace Snowbird {
             bool run = true;
             while(run) {
                 Console.Clear();
-                Console.WriteLine("1. Reg\n2. Login\n3. passw reset\n\n0. exit");
+                Console.WriteLine("1. Register\n2. Login\n\n0. exit");
 
                 switch (int.Parse(Console.ReadLine())) {
                     case 0:
@@ -27,9 +27,6 @@ namespace Snowbird {
                     case 2:
                         run = false;
                         Login();
-                        break;
-                    case 3:
-                        PassReset();
                         break;
                     default: break;
                 }
@@ -52,6 +49,7 @@ namespace Snowbird {
                         Console.Write("E-mail (used for password reset. Not required but advised): ");
                         email = Console.ReadLine();
                     }
+                    // Check here, if the email is already in use
                 }
 
                 while (true) {
@@ -59,6 +57,8 @@ namespace Snowbird {
                     Console.Write("Username (Numbers and english letters only! At least 6 characters long): ");
                     username = Console.ReadLine();
                     if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) break;
+
+                    //Check here, if the username is already in use
                 }
 
                 while (true) {
@@ -67,6 +67,8 @@ namespace Snowbird {
                     password = getHashedPass();
                     Console.Write("Password again: ");
                     if (getHashedPass() == password) break;
+
+                    // Make it check for empty password
                 }
 
                 Console.Write("Your data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
@@ -75,6 +77,15 @@ namespace Snowbird {
 
             DateTime myDateTime = DateTime.Now;
             string dateTime = myDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+            // if left arrow key
+            if (month > 1) {
+                month--;
+            } else {
+                year--;
+                month = 12;
+            }
             string query = "INSERT INTO `users` (`email`, `username`, `password`, `created_at`) VALUES('" + email + "', '" + username + "', '" + password + "', '" + dateTime + "');";
             Program.db.NonQuery(query);
             query = "";
@@ -116,12 +127,11 @@ namespace Snowbird {
                 }
             }
         }
-        public static void PassReset() {
+        
+        public static void Main_Menu()
+        {
 
-        }/*
-        public static void Change_Username() {
-            string query = "UPDATE users SET username = '" + username + "' WHERE user_id = 100000007;";
-        }*/
+        }
 
         public static string getHashedPass() {
             string passwd = "";

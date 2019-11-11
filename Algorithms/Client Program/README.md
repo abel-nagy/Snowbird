@@ -21,3 +21,5 @@
    - Ask for verification code
    - Ask for new password, and confirm it by asking for it again, hash it via SHA256 right away
    - Package them to a packet, secure the packet, send it to server for password reset action
+
+## Menu

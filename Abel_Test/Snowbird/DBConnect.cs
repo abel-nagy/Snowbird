@@ -137,15 +137,5 @@ namespace Snowbird {
             return Count;
         }
 
-        // Backup
-        public void Backup() {
-
-        }
-
-        // Restore
-        public void Restore() {
-
-        }
-
     }
 }

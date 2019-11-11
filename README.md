@@ -1,7 +1,7 @@
 # Snowbird Wallet Application
 
 ## The program
-1. User identification
+1. User identification     (Patrik)
    1. Username/email
       * No spaces, only english alphabet characters
       * Case insensitive
@@ -14,18 +14,26 @@
          - Name (Bank Account name)
          - Account Number (only if actual Bank Account)
          - Description (not necessary)
-    - Action
-       - Description (not necessary)
-       - Type:
-         1. Expense
-         3. Income
-         3. Transfer
-            - Type:
-              1. Between own wallets
-              2. To another user
-            * Can only be initiated from sender
-            * On the receiver end makes an Income entry
-            * On the sender end makes an Expense entry
+    - Actions
+      1. Add transactions        (Ábel)
+         - Description (not necessary)
+         - Type:
+            1. Expense
+            3. Income
+            3. Transfer
+               - Type:
+               1. Between own wallets
+               2. To another user
+               * Can only be initiated from sender
+               * On the receiver end makes an Income entry
+               * On the sender end makes an Expense entry
+      2. Add wallet           (Krisztián)
+         - Type
+           * Wallet
+           * Bank Account
+         - Currency
+         - Initial amount
+         - Description (not necessary)
     - Currency
       * Given for every account
       * Currency conversion if sender and receiver wallet default currency is not the same
@@ -34,7 +42,7 @@
    * Only own wallets can be backed up for download to an SQL file
    * In a format to be importable to a new database
 4. Views
-    1. After registration/login (main menu)
+    1. After registration/login (main menu)           (Patrik)
        - List all wallets and their actual amount
     3. Selecting wallet
        - List account history by month
