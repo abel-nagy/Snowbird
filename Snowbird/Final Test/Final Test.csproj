@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.18.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,10 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu\Login.cs" />
-    <Compile Include="Menu\LoginMain.cs" />
-    <Compile Include="Menu\Main.cs" />
-    <Compile Include="Menu\Register.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="Menus\Login.cs" />
+    <Compile Include="Menus\Welcome.cs" />
+    <Compile Include="Menus\Main.cs" />
+    <Compile Include="Menus\Register.cs" />
     <Compile Include="Snowbird.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

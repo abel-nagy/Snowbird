@@ -1,16 +1,28 @@
-﻿using System;
+﻿using Final_Test.Menus;
+
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace Final_Test {
     class Snowbird {
 
-        static Database db;
+        public static Database db;
+        private static bool running;
 
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args) {
+            running = true;
             db = new Database("127.0.0.1", "snowbird", "root", "");
+            Register.Run();
 
-
+            //while(running) {
+                
+            //}
         }
 
 
@@ -56,6 +68,23 @@ namespace Final_Test {
                 }
                 return builder.ToString();
             }
+        }
+
+        /// <summary>
+        /// Single key pressed in string format
+        /// </summary>
+        /// <returns>Which key has been pressed by the user</returns>
+        public static string keyPressed() {
+            string key = "";
+            ConsoleKeyInfo ans = Console.ReadKey(true);
+            key = ans.KeyChar.ToString();
+            return key;
+        }
+
+        // Properties
+        public bool Running {
+            get { return running; }
+            set { running = value; }
         }
     }
 }
