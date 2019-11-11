@@ -23,10 +23,18 @@ namespace Final_Test.Menus {
                         Console.Write("E-mail (used for password reset. Not required but advised): ");
                         email = Console.ReadLine();
 
+                    }
+
+                    // Check here, if the email is already in use
+                    //email check (Patrik)
+                     int n = Snowbird.db.Count("SELECT count(*) FROM users WHERE email='" + email + "';");
+                     while(n != 0)
+                     {
+                        Console.Clear();
+                        Console.Write("E-mail (used for password reset. Not required but advised, foglalt): ");
+                        email = Console.ReadLine();
+                    }
                         
-                        // Check here, if the email is already in use
-                        //email check (Patrik)
-                    }    
                 }
 
                 while (true) {
@@ -49,9 +57,6 @@ namespace Final_Test.Menus {
                 }
 
                 Console.Write("Your data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
-                MySqlCommand n = new MySqlCommand("SELECT count(*) FROM users WHERE email='" + email + "';");
-                var result = n.ExecuteScalar();
-                Console.WriteLine(result);
                 if (Console.ReadLine() == "y") break;
             }
 
