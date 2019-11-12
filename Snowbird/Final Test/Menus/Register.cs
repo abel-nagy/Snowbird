@@ -11,42 +11,67 @@ namespace Final_Test.Menus {
             while (true) {
                 email = ""; username = ""; password = "";
 
+                    // E-mail
+                bool emailOk;
                 Console.Clear();
-                Console.Write("E-mail (used for password reset. Not required but advised): ");
-                email = Console.ReadLine();
-                //email
-                if (email != "") {
-                    string pattern = "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
-                    while (!Regex.IsMatch(email, pattern))
-                    {
-                        Console.Clear();
-                        Console.Write("E-mail (used for password reset. Not required but advised): ");
-                        email = Console.ReadLine();
+                do {
 
+                    emailOk = true;
+
+                    Console.Write("E-mail (used for password reset. Not required but advised): ");
+                    email = Console.ReadLine();
+
+                    if (email != "") {
+                        string pattern = "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
+
+                        if(!Regex.IsMatch(email, pattern)) {
+
+                            emailOk = false;
+
+                            Console.Clear();
+                            Console.WriteLine("Not a valid e-mail address!");
+
+                        } else {
+                            if (Snowbird.db.Count("SELECT count(*) FROM users WHERE email='" + email + "';") > 0) {
+
+                                emailOk = false;
+
+                                Console.Clear();
+                                Console.WriteLine("Email is already in use. Try another one!");
+
+                            }
+                        }
                     }
+                } while (!emailOk);
 
-                    // Check here, if the email is already in use
-                    //Email check (Patrik)
-                     int emailCheck = Snowbird.db.Count("SELECT count(*) FROM users WHERE email='" + email + "';");
-                     while(emailCheck != 0)
-                     {
-                        Console.Clear();
-                        Console.WriteLine("Email has already exists");
-                        Console.Write("E-mail (used for password reset. Not required but advised): ");
-                        email = Console.ReadLine();
-                    }
-                        
-                }
+                // Usename
+                bool usernameOk;
+                Console.Clear();
+                do {
 
-                //usename
-                while (true) {
-                    Console.Clear();
+                    usernameOk = true;
+
                     Console.Write("Username (Numbers and english letters only! At least 6 characters long): ");
                     username = Console.ReadLine();
-                    if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) break;
+
+                    if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) {
+                        if(Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';") > 0) {
+
+                            usern
+
+                        }
+                    }
+
+                } while (!usernameOk);
+
+
+                while (true) {
+                    Console.Clear();
+                    
+                    
 
                     //Username check (Patrik)
-                   int usernameCheck = Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';");
+                    int usernameCheck = ;
 
                     do
                     {
