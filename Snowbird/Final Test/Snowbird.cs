@@ -5,10 +5,11 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace Final_Test {
-    class Snowbird {
+    public class Snowbird {
 
         public static Database db;
         private static bool running;
+        public static User user;
 
 
         /// <summary>
@@ -18,6 +19,7 @@ namespace Final_Test {
         static void Main(string[] args) {
             running = true;
             db = new Database("127.0.0.1", "snowbird", "root", "");
+            //user = new User("sens1tiv", "100000000");
             Register.Run();
 
             //while(running) {
