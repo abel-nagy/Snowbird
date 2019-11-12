@@ -14,7 +14,7 @@ namespace Final_Test.Menus {
                 Console.Clear();
                 Console.Write("E-mail (used for password reset. Not required but advised): ");
                 email = Console.ReadLine();
-
+                //email
                 if (email != "") {
                     string pattern = "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
                     while (!Regex.IsMatch(email, pattern))
@@ -38,6 +38,7 @@ namespace Final_Test.Menus {
                         
                 }
 
+                //usename
                 while (true) {
                     Console.Clear();
                     Console.Write("Username (Numbers and english letters only! At least 6 characters long): ");
@@ -45,17 +46,22 @@ namespace Final_Test.Menus {
                     if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) break;
 
                     //Username check (Patrik)
-                    int usernameCheck = Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';");
-                    while (usernameCheck != 0)
+                   int usernameCheck = Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';");
+
+                    do
                     {
                         Console.Clear();
                         Console.WriteLine("Username has already exists");
                         Console.Write("Username (Numbers and english letters only! At least 6 characters long): ");
                         username = Console.ReadLine();
-                    }
+                    } while (usernameCheck != 0);
 
                 }
+                 
 
+                
+
+                //password
                 while (true) {
                     Console.Clear();
                     Console.Write("Password (can be any length and character): ");
