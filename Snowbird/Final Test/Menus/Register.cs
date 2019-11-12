@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using MySql.Data.MySqlClient;
+
 
 namespace Final_Test.Menus {
     public static class Register {
@@ -26,12 +26,13 @@ namespace Final_Test.Menus {
                     }
 
                     // Check here, if the email is already in use
-                    //email check (Patrik)
-                     int n = Snowbird.db.Count("SELECT count(*) FROM users WHERE email='" + email + "';");
-                     while(n != 0)
+                    //Email check (Patrik)
+                     int emailCheck = Snowbird.db.Count("SELECT count(*) FROM users WHERE email='" + email + "';");
+                     while(emailCheck != 0)
                      {
                         Console.Clear();
-                        Console.Write("E-mail (used for password reset. Not required but advised, foglalt): ");
+                        Console.WriteLine("Email has already exists");
+                        Console.Write("E-mail (used for password reset. Not required but advised): ");
                         email = Console.ReadLine();
                     }
                         
@@ -43,7 +44,16 @@ namespace Final_Test.Menus {
                     username = Console.ReadLine();
                     if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) break;
 
-                    //Check here, if the username is already in use
+                    //Username check (Patrik)
+                    int usernameCheck = Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';");
+                    while (usernameCheck != 0)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Username has already exists");
+                        Console.Write("Username (Numbers and english letters only! At least 6 characters long): ");
+                        username = Console.ReadLine();
+                    }
+
                 }
 
                 while (true) {
