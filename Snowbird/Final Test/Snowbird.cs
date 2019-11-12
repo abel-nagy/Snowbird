@@ -19,7 +19,7 @@ namespace Final_Test {
         static void Main(string[] args) {
             running = true;
             db = new Database("127.0.0.1", "snowbird", "root", "");
-            
+            Register.Run();
             Login.Run();
             
             //while(running) {
