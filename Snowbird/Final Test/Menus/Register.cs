@@ -12,9 +12,11 @@ namespace Final_Test.Menus {
                 email = ""; username = ""; password = "";
 
                     // E-mail
-                bool emailOk = true;
+                bool emailOk;
                 Console.Clear();
                 do {
+
+                    emailOk = true;
 
                     Console.Write("E-mail (used for password reset. Not required but advised): ");
                     email = Console.ReadLine();
@@ -41,16 +43,35 @@ namespace Final_Test.Menus {
                         }
                     }
                 } while (!emailOk);
-                
+
                 // Usename
-                while (true) {
-                    Console.Clear();
+                bool usernameOk;
+                Console.Clear();
+                do {
+
+                    usernameOk = true;
+
                     Console.Write("Username (Numbers and english letters only! At least 6 characters long): ");
                     username = Console.ReadLine();
-                    if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) break;
+
+                    if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) {
+                        if(Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';") > 0) {
+
+                            usern
+
+                        }
+                    }
+
+                } while (!usernameOk);
+
+
+                while (true) {
+                    Console.Clear();
+                    
+                    
 
                     //Username check (Patrik)
-                    int usernameCheck = Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';");
+                    int usernameCheck = ;
 
                     do
                     {
