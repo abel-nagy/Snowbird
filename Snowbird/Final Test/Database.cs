@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Final_Test {
-    class Database {
+    public class Database {
 
         private MySqlConnection connection;
         private string server, database, uid, password;
