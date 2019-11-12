@@ -44,52 +44,40 @@ namespace Final_Test.Menus {
                     }
                 } while (!emailOk);
 
-                // Usename
+                    // Usename
                 bool usernameOk;
                 Console.Clear();
                 do {
 
                     usernameOk = true;
 
-                    Console.Write("Username (Numbers and english letters only! At least 6 characters long): ");
+                    Console.WriteLine("Username must contain numbers and english letters only and must be at least 6 characters long!");
+                    Console.Write("Username: ");
                     username = Console.ReadLine();
 
                     if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) {
                         if(Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';") > 0) {
 
-                            usern
+                            usernameOk = false;
+
+                            Console.Clear();
+                            Console.WriteLine("Already in use. Try another one!");
 
                         }
+                    } else {
+
+                        usernameOk = false;
+
                     }
 
                 } while (!usernameOk);
-
-
-                while (true) {
-                    Console.Clear();
-                    
-                    
-
-                    //Username check (Patrik)
-                    int usernameCheck = ;
-
-                    do
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Username has already exists");
-                        Console.Write("Username (Numbers and english letters only! At least 6 characters long): ");
-                        username = Console.ReadLine();
-                    } while (usernameCheck != 0);
-
-                }
-                 
-
                 
-
-                //password
+                    // Password
                 while (true) {
                     Console.Clear();
-                    Console.Write("Password (can be any length and character): ");
+                    Console.WriteLine("Password can be any length and character.");
+                    Console.Write("Password:       ");
+                    Console.WriteLine(password);
                     password = Snowbird.getHashedPass();
                     Console.Write("Password again: ");
                     if (Snowbird.getHashedPass() == password) break;

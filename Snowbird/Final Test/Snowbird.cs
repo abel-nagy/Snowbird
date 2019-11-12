@@ -19,9 +19,9 @@ namespace Final_Test {
         static void Main(string[] args) {
             running = true;
             db = new Database("127.0.0.1", "snowbird", "root", "");
-            //user = new User("sens1tiv", "100000000");
-            Register.Run();
 
+            Register.Run();
+            
             //while(running) {
                 
             //}
