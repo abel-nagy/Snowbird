@@ -13,9 +13,19 @@ namespace Final_Test.Menus {
 
             for (int i = 0; i < Snowbird.user.WalletCount; i++) {
                 if (wallets[2][i] == "0") {
-                    Console.WriteLine(" - Physical wallet\t{0} {1}\t\t{2}", wallets[3][i], wallets[4][i], wallets[7][i]);
+                    Console.Write("  ({0}) ", i+1);
+                    Snowbird.Write("Wallet", ConsoleColor.DarkRed, ConsoleColor.Gray);
+                    if (!string.IsNullOrEmpty(wallets[7][i]))
+                        Console.Write(" ({0})", wallets[7][i]);
+                    Console.Write("\n    \t");
+                    Snowbird.WriteLine(wallets[3][i] + " " + wallets[4][i], ConsoleColor.Yellow);
                 } else {
-                    Console.WriteLine(" - Bank account ({0})", wallets[5][i]);
+                    Console.Write("  ({0}) ", i + 1);
+                    Snowbird.Write("Account", ConsoleColor.DarkRed, ConsoleColor.Gray);
+                    if (!string.IsNullOrEmpty(wallets[7][i]))
+                        Console.Write(" ({0})", wallets[7][i]);
+                    Console.Write("\n    \t");
+                    Snowbird.WriteLine(wallets[3][i] + " " + wallets[4][i], ConsoleColor.Yellow);
                 }
 
             }

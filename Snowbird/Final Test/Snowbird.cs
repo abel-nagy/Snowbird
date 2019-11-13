@@ -82,6 +82,32 @@ namespace Final_Test {
             return key;
         }
 
+        /// <summary>
+        /// Easier colored output
+        /// </summary>
+        /// <param name="text">Your text</param>
+        /// <param name="fColor">Foreground color</param>
+        /// <param name="bColor">Background color</param>
+        public static void Write(string text, ConsoleColor fColor, ConsoleColor bColor = ConsoleColor.Black) {
+            Console.BackgroundColor = bColor;
+            Console.ForegroundColor = fColor;
+            Console.Write(text);
+            Console.ResetColor();
+        }
+        /// <summary>
+        /// Easier colored output with new line
+        /// </summary>
+        /// <param name="text">Your text</param>
+        /// <param name="fColor">Foreground color</param>
+        /// <param name="bColor">Background color</param>
+        public static void WriteLine(string text, ConsoleColor fColor, ConsoleColor bColor = ConsoleColor.Black) {
+            Console.BackgroundColor = bColor;
+            Console.ForegroundColor = fColor;
+            Console.Write(text);
+            Console.ResetColor();
+            Console.WriteLine();
+        }
+
         // Properties
         public bool Running {
             get { return running; }
