@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Final_Test {
     public class User {
 
-        private string username, userid;
+        private int walletCount;
+        private List<string>[] wallets;
 
-        public User(string username, string userid) {
-            this.username = username;
-            this.userid = userid;
+        public User(string username, string userId) {
+            this.Username = username;
+            this.UserId = userId;
         }
 
-        public string Username {
-            get { return username; }
+        // Properties
+        public string Username { get; }
+        public string UserId { get; }
+        public int WalletCount {
+            get { return walletCount; }
+            set { walletCount = value; }
         }
-        public string Userid {
-            get { return userid; }
+        public List<string>[] Wallets {
+            get { return wallets; }
+            set { wallets = value; }
         }
 
     }

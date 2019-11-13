@@ -1,0 +1,14 @@
+Wallet.cs
+
+class name: Wallet
+accessibility modifiers: public, static
+
+methods:
+  public static void Run()
+    {ask for 
+      currency type (huf, eur, usd, etc)
+      account name
+      account number
+      wallet description
+      starting amount
+    }

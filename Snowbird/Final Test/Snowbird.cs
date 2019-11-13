@@ -10,8 +10,7 @@ namespace Final_Test {
         public static Database db;
         private static bool running;
         public static User user;
-
-
+        
         /// <summary>
         /// Constructor
         /// </summary>
@@ -19,12 +18,12 @@ namespace Final_Test {
         static void Main(string[] args) {
             running = true;
             db = new Database("127.0.0.1", "snowbird", "root", "");
-            Register.Run();
-            Login.Run();
-            
-            //while(running) {
-                
-            //}
+
+            Welcome.Run();
+            while (running) {
+                MainMenu.Run();
+                Console.ReadKey();
+            }
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Security;
+using System.Collections.Generic;
 
 namespace Final_Test.Menus {
     public static class Login {
@@ -30,7 +31,15 @@ namespace Final_Test.Menus {
                             break;
                         }
                     } else {
-                        
+                        string s = "FROM users WHERE username='" + identifier + "' AND password='" + password + "';";
+                        if (Snowbird.db.Count("SELECT COUNT(*) " + s) == 1) {
+                            
+                            Snowbird.user = new User(identifier, getUserId(identifier));
+                            Snowbird.user.WalletCount = Snowbird.db.Count("SELECT COUNT(*) FROM wallets WHERE user_id='" + Snowbird.user.UserId + "';");
+                            Snowbird.user.Wallets = getWallets(Snowbird.user.UserId);
+                            break;
+
+                        }
                     }
                 }
             }
@@ -39,6 +48,10 @@ namespace Final_Test.Menus {
 
         public static string getUserId(string username) {
             return Snowbird.db.Select("SELECT id FROM users WHERE username='" + username + "';", 1, new string[1] { "id" })[0][0];
+        }
+
+        public static List<string>[] getWallets(string userId) {
+            return Snowbird.db.Select("SELECT * FROM wallets WHERE user_id='" + userId + "' ORDER BY type;", 9, new string[9] { "id", "user_id", "type", "amount", "currency", "account_name", "account_number", "description", "created_at" });
         }
 
     }
