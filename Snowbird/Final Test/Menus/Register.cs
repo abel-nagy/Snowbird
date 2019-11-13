@@ -74,14 +74,15 @@ namespace Final_Test.Menus {
                 
                     // Password
                 while (true) {
+
                     Console.Clear();
                     Console.WriteLine("Password can be any length and character.");
                     Console.Write("Password:       ");
                     password = Snowbird.getHashedPass();
-                    Console.Write("Password again: ");
-                    if (Snowbird.getHashedPass() == password) break;
 
-                    // Make it check for empty password
+                    Console.Write("Password again: ");
+                    if (Snowbird.getHashedPass() == password && password != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") break;
+
                 }
 
                 Console.Write("Your data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
@@ -93,7 +94,6 @@ namespace Final_Test.Menus {
             
             string query = "INSERT INTO `users` (`email`, `username`, `password`, `created_at`) VALUES('" + email + "', '" + username + "', '" + password + "', '" + dateTime + "');";
             Snowbird.db.NonQuery(query);
-            query = "";
         }
 
     }

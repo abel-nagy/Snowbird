@@ -39,7 +39,7 @@ namespace Final_Test {
                 connection.Open();
                 return true;
             } catch (MySqlException ex) {
-
+                Console.WriteLine("\n");
                 switch (ex.Number) {
                     case 0:
                         Console.WriteLine("Cannot connect to server. Contact administrator!");
@@ -51,6 +51,10 @@ namespace Final_Test {
                         Console.WriteLine("We have no idea what happened. Please stay tuned! p.s.: FIX THIS DAMNED PROGRAM!!!");
                         break;
                 }
+
+                Console.WriteLine("\nExitting program...");
+                Console.ReadKey();
+                System.Environment.Exit(1);
 
                 return false;
             }
@@ -100,7 +104,7 @@ namespace Final_Test {
         /// <param name="query">MySQL Command</param>
         /// <param name="columns">How many columns to ask for</param>
         /// <param name="columnsName">The names of the asked columns</param>
-        /// <returns>A string type List of the returned entries</returns>
+        /// <returns>A string type List of the returned entries (nested array)</returns>
         public List<string>[] Select(string query, int columns, string[] columnsName) {
 
             // A list to store the results
