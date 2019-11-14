@@ -3,6 +3,7 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Final_Test {
     public class Snowbird {     // by Ábel
@@ -30,7 +31,7 @@ namespace Final_Test {
         /// Safely gets and returns the hashed password as a string
         /// </summary>
         /// <returns>The SHA256 hashed password</returns>
-        public static string getHashedPass() {
+        public static string GetHashedPass() {
             string passwd = "";
             ConsoleKeyInfo key;
 
@@ -49,7 +50,6 @@ namespace Final_Test {
 
             return ComputeSha256Hash(passwd);
         }
-
         /// <summary>
         /// Computes the SHA256 hash of a given string
         /// </summary>
@@ -74,11 +74,34 @@ namespace Final_Test {
         /// Single key pressed in string format
         /// </summary>
         /// <returns>Which key has been pressed by the user</returns>
-        public static string keyPressed() {
+        public static string KeyPressed() {
             string key = "";
             ConsoleKeyInfo ans = Console.ReadKey(true);
             key = ans.KeyChar.ToString();
             return key;
+        }
+        /// <summary>
+        /// Get only numbers from User
+        /// </summary>
+        /// <returns></returns>
+        public static string GetNumbers() {
+            string number = "";
+            ConsoleKeyInfo key;
+
+            do {
+                key = Console.ReadKey(true);
+
+                // Ignore any key out of range
+                if( Regex.Match(char.ToString(key.KeyChar), "^[0-9]*$").Success || char.ToString(key.KeyChar) == "." ) {
+                    // Append the character to the number
+                    number += key.KeyChar;
+                    Console.Write(key.KeyChar);
+                }
+                // Exit if Enter key is pressed
+            } while (key.Key != ConsoleKey.Enter);
+            Console.WriteLine();
+
+            return number;
         }
 
         /// <summary>
@@ -107,17 +130,16 @@ namespace Final_Test {
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Make the program exit safely and nicely
+        /// </summary>
         public static void Exit() {
             Console.Clear();
             Console.Write("Are you sure you want to ");
             Write("QUIT",ConsoleColor.Red, ConsoleColor.White);
-            Console.Write("? (");
-            Write("y", ConsoleColor.Yellow);
-            Console.Write("/");
-            Write("n", ConsoleColor.Yellow);
-            Console.WriteLine(")");
+            Console.Write("? ("); /**/ Write("y", ConsoleColor.Yellow); /**/ Console.Write("/"); /**/ Write("n", ConsoleColor.Yellow); /**/ Console.WriteLine(")");
 
-            if (keyPressed().ToLower() == "y") {
+            if (KeyPressed().ToLower() == "y") {
                 running = false;
                 WriteLine("Quitting...", ConsoleColor.Red, ConsoleColor.White);
                 System.Threading.Thread.Sleep(2000);
