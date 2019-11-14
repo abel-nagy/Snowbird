@@ -27,7 +27,7 @@ VALUES(
     NULL,
     '100000000',
     '0',
-    '5642',
+    '56420',
     'huf',
     NULL,
     NULL,
@@ -48,7 +48,7 @@ VALUES(
     NULL,
     '100000000',
     '1',
-    '56423',
+    '56420',
     NULL,
     NULL,
     'Initial amount',
@@ -184,7 +184,8 @@ INSERT INTO `transactions`(     -- Create initial amount for Wallet (id: 3)
     `amount`,
     `fromWalletId`,
     `toWalletId`,
-    `description`
+    `description`, 
+    `created_at`
 )
 VALUES(
     NULL,
@@ -193,7 +194,8 @@ VALUES(
     '67',
     NULL,
     NULL,
-    'Initial amount'
+    'Initial amount', 
+    '2019-11-09 16:11:49'
 );
 INSERT INTO `wallets`(          -- Create test Account       (id: 4)
     `id`,
