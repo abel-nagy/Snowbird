@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace Final_Test {
-    public class Snowbird {
+    public class Snowbird {     // by Ábel
 
         public static Database db;
         private static bool running;
@@ -22,7 +22,6 @@ namespace Final_Test {
             Welcome.Run();
             while (running) {
                 MainMenu.Run();
-                Console.ReadKey();
             }
         }
 
@@ -106,6 +105,24 @@ namespace Final_Test {
             Console.Write(text);
             Console.ResetColor();
             Console.WriteLine();
+        }
+
+        public static void Exit() {
+            Console.Clear();
+            Console.Write("Are you sure you want to ");
+            Write("QUIT",ConsoleColor.Red, ConsoleColor.White);
+            Console.Write("? (");
+            Write("y", ConsoleColor.Yellow);
+            Console.Write("/");
+            Write("n", ConsoleColor.Yellow);
+            Console.WriteLine(")");
+
+            if (keyPressed().ToLower() == "y") {
+                running = false;
+                WriteLine("Quitting...", ConsoleColor.Red, ConsoleColor.White);
+                System.Threading.Thread.Sleep(2000);
+                System.Environment.Exit(1);
+            }
         }
 
         // Properties
