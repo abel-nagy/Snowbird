@@ -78,10 +78,10 @@ namespace Final_Test.Menus {
                     Console.Clear();
                     Console.WriteLine("Password can be any length and character.");
                     Console.Write("Password: ");
-                    password = Snowbird.getHashedPass();
+                    password = Snowbird.GetHashedPass();
 
                     Console.Write("Password again: ");
-                    if (Snowbird.getHashedPass() == password && password != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") break;
+                    if (Snowbird.GetHashedPass() == password && password != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") break;
 
                 }
 
