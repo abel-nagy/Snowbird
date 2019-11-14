@@ -17,6 +17,9 @@ namespace Final_Test {
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args) {
+
+            Console.Title = "Snowbird Wallet Application";
+
             running = true;
             db = new Database("127.0.0.1", "snowbird", "root", "");
 
