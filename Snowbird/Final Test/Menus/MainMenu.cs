@@ -20,7 +20,7 @@ namespace Final_Test.Menus {
 
                 if (wallets[2][i] == "0") {
 
-                    Snowbird.Write("Wallet", ConsoleColor.Green);
+                    Snowbird.Write("Wallet", ConsoleColor.Cyan);
                     
                 } else {
 
@@ -30,7 +30,7 @@ namespace Final_Test.Menus {
 
                 if (!string.IsNullOrEmpty(wallets[7][i]))
                     Console.Write(" ({0})", wallets[7][i]);
-                Console.Write("\n\t\t\t"); /**/ Snowbird.WriteLine(wallets[3][i] + " " + wallets[4][i], ConsoleColor.DarkCyan);
+                Console.Write("\n\t\t\t"); /**/ Snowbird.WriteLine(wallets[3][i] + " " + wallets[4][i], ConsoleColor.Green);
 
             }
 
@@ -60,7 +60,7 @@ namespace Final_Test.Menus {
             Console.Write("\n\t- Summary of your ");
 
             if (wallets[2][wallet] == "0")
-                Snowbird.Write("Wallet", ConsoleColor.Green);
+                Snowbird.Write("Wallet", ConsoleColor.Cyan);
             else {
 
                 Snowbird.Write("Account", ConsoleColor.Magenta);
@@ -70,27 +70,39 @@ namespace Final_Test.Menus {
 
             if (!string.IsNullOrEmpty(wallets[7][wallet]))
                 Console.Write(" ({0})", wallets[7][wallet]);
-
-            Console.WriteLine();
-
+            
             DateTime now = DateTime.Now;
-            int incomeMonth = 0, expenseMonth = 0;
+
+            Console.Write(" in "); /**/ Snowbird.WriteLine(now.Year + "-" + now.Month, ConsoleColor.Black, ConsoleColor.White);
+
+            int incomeMonth = 0, expenseMonth = 0, amountMonthBegin = 0, amountMonthEnd = 0;
             List<string>[] trans = Snowbird.user.Transactions;
 
-            for (int i = 0; i < Snowbird.user.TransactionCount && Convert.ToInt32(trans[1][i]) == walletId; i++) {
+            for (int i = 0; i < Snowbird.user.TransactionCount; i++) {
 
-                DateTime transDate = Convert.ToDateTime(trans[7][i]);
-                if (now.Month == transDate.Month && now.Year == transDate.Year) {
+                if (Convert.ToInt32(trans[1][i]) == walletId) {
+                    DateTime transDate = Convert.ToDateTime(trans[7][i]);
 
-                    if (trans[2][i] == "1") {
-                        incomeMonth += Convert.ToInt32(trans[3][i]);
-                    } else {
-                        expenseMonth += Convert.ToInt32(trans[3][i]);
+                    if (now.Month == transDate.Month && now.Year == transDate.Year) {
+
+                        if (trans[2][i] == "1") {
+                            incomeMonth += Convert.ToInt32(trans[3][i]);
+                        } else {
+                            expenseMonth += Convert.ToInt32(trans[3][i]);
+                        }
+                    } else if(now.Month > transDate.Month) {
+                        amountMonthBegin += Convert.ToInt32(trans[2][i]) * Convert.ToInt32(trans[3][i]);
                     }
+
+                    amountMonthEnd = amountMonthBegin + incomeMonth - expenseMonth;
+
                 }
             }
 
-            Console.WriteLine("\n\tIncome: " + incomeMonth + "\n\tExpense: " + expenseMonth);
+            Snowbird.WriteLine("\n\t\tIncome:     " + incomeMonth, ConsoleColor.DarkGreen);
+            Snowbird.WriteLine("\t\tExpense:    " + expenseMonth, ConsoleColor.DarkRed);
+            Snowbird.WriteLine("\t\tNet income: " + (incomeMonth - expenseMonth), ConsoleColor.DarkYellow);
+            Console.WriteLine("\n\tMonth begin: " + amountMonthBegin + "\tMonth end: " + amountMonthEnd);
 
             Console.ReadKey();
         }
