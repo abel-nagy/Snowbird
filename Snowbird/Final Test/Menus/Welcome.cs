@@ -6,9 +6,10 @@ namespace Final_Test.Menus {
         public static void Run() {
             while (Snowbird.Running)
             {
+                Console.Clear();
                 Console.WriteLine("### Házi Pénztár ###\n");
                 Console.WriteLine("1. Register\n2. Login\n\n0. exit");
-                switch (int.Parse(Console.ReadLine()))
+                switch (int.Parse(Snowbird.keyPressed()))
                 {
                     case 0:
                         Console.Clear();

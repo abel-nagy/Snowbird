@@ -11,7 +11,7 @@ namespace Final_Test.Menus {
             while (true) {
                 email = ""; username = ""; password = "";
 
-                    // E-mail
+                // E-mail
                 bool emailOk;
                 Console.Clear();
                 do {
@@ -44,7 +44,7 @@ namespace Final_Test.Menus {
                     }
                 } while (!emailOk);
 
-                    // Usename
+                // Usename
                 bool usernameOk;
                 Console.Clear();
                 do {
@@ -72,7 +72,7 @@ namespace Final_Test.Menus {
 
                 } while (!usernameOk);
                 
-                    // Password
+                // Password
                 while (true) {
 
                     Console.Clear();
@@ -94,6 +94,7 @@ namespace Final_Test.Menus {
             
             string query = "INSERT INTO `users` (`email`, `username`, `password`, `created_at`) VALUES('" + email + "', '" + username + "', '" + password + "', '" + dateTime + "');";
             Snowbird.db.NonQuery(query);
+            Welcome.Run();
         }
 
     }
