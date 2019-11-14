@@ -33,10 +33,10 @@ namespace Final_Test.Menus {
                     } else {
                         string s = "FROM users WHERE username='" + identifier + "' AND password='" + password + "';";
                         if (Snowbird.db.Count("SELECT COUNT(*) " + s) == 1) {
-                            
+
                             Snowbird.user = new User(identifier, getUserId(identifier));
-                            Snowbird.user.WalletCount = Snowbird.db.Count("SELECT COUNT(*) FROM wallets WHERE user_id='" + Snowbird.user.UserId + "';");
-                            if (Snowbird.user.WalletCount == 0) createFirstWallet(Snowbird.user.UserId);
+                            if (Snowbird.db.Count("SELECT COUNT(*) FROM wallets WHERE user_id='" + Snowbird.user.UserId + "';") == 0) createFirstWallet(Snowbird.user.UserId);    
+                            Snowbird.user.WalletCount = Snowbird.db.Count("SELECT COUNT(*) FROM wallets WHERE user_id='" + Snowbird.user.UserId + "';");   
                             Snowbird.user.Wallets = getWallets(Snowbird.user.UserId);
                             break;
 
@@ -60,7 +60,7 @@ namespace Final_Test.Menus {
             Console.Clear();
             Console.WriteLine("Create your first wallets\n");
             int amount = 0;
-            string currency = "HUF";
+            string currency = "huf";
             //amount
             Console.Write("Amount: ");
             amount = Convert.ToInt32(Console.ReadLine());
@@ -84,7 +84,6 @@ namespace Final_Test.Menus {
             string dateTime = myDateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
             string query = "INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) VALUES (NULL, '" + userId + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
-            
             Snowbird.db.NonQuery(query);
         }
 

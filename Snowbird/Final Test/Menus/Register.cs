@@ -77,7 +77,7 @@ namespace Final_Test.Menus {
 
                     Console.Clear();
                     Console.WriteLine("Password can be any length and character.");
-                    Console.Write("Password:       ");
+                    Console.Write("Password: ");
                     password = Snowbird.getHashedPass();
 
                     Console.Write("Password again: ");
