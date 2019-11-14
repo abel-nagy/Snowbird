@@ -109,7 +109,7 @@ namespace Final_Test {
         }
 
         // Properties
-        public bool Running {
+        public static bool Running {
             get { return running; }
             set { running = value; }
         }
