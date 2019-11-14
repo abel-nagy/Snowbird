@@ -19,10 +19,10 @@ CREATE TABLE `snowbird`.`wallets`(
     `id` INT NOT NULL AUTO_INCREMENT, 
     `user_id` INT NOT NULL, 
     `type` INT NOT NULL DEFAULT '0', 
-    `amount` INT NOT NULL DEFAULT '0', 
+    `amount` FLOAT NOT NULL DEFAULT '0', 
     `currency` VARCHAR(3) NOT NULL, 
     `account_name` VARCHAR(40), 
-    `account_number` INT, 
+    `account_number` VARCHAR(24), 
     `description` VARCHAR(20), 
     `created_at` DATETIME NOT NULL, 
     PRIMARY KEY (`id`)
@@ -35,10 +35,11 @@ CREATE TABLE `snowbird`.`transactions`(
     `id` INT(9) NOT NULL AUTO_INCREMENT,
     `wallet_id` INT(9) NOT NULL,
     `type` INT NOT NULL,
-    `amount` INT NOT NULL,
+    `amount` FLOAT NOT NULL,
     `fromWalletId` INT(9) NULL,
     `toWalletId` INT(9) NULL,
     `description` VARCHAR(20) NULL,
+    `created_at` DATETIME NOT NULL, 
     PRIMARY KEY(`id`)
 ) ENGINE = INNODB;
 
