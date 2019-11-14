@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
+    <Compile Include="Menus\addWallets.cs" />
     <Compile Include="Menus\Login.cs" />
     <Compile Include="Menus\Welcome.cs" />
     <Compile Include="Menus\MainMenu.cs" />

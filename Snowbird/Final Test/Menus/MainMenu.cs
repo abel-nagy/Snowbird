@@ -34,6 +34,7 @@ namespace Final_Test.Menus {
 
             }
 
+            Console.Write("\n\n\n\n\t("); /**/ Snowbird.Write("n", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("New Wallet", ConsoleColor.Red);
             Console.Write("\n\n\n\n\t("); /**/ Snowbird.Write("0", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
 
             string input = Snowbird.KeyPressed();
@@ -42,6 +43,11 @@ namespace Final_Test.Menus {
                 case "0":
                     Snowbird.Exit();
                     break;
+                //EZT IRTAM HOZZÁ --- PATRIK
+                case "n":
+                    addWallets.Run();
+                    break;
+                // -------
                 default:
                     if (Regex.Match(input, "^[1-9]*$").Success) {
                         int choosenWallet = int.Parse(input);
