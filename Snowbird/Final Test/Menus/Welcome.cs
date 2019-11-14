@@ -8,10 +8,10 @@ namespace Final_Test.Menus {
             while (Snowbird.Running && isWelcome) {
 
                 Console.Clear();
-                Console.Write("\t\t\t\t\t\tWelcome to "); /**/ Snowbird.Write("Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White);
-                Console.Write("!\n  ("); /**/ Snowbird.Write("1", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Register", ConsoleColor.Green);
-                Console.Write("  ("); /**/ Snowbird.Write("2", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Login", ConsoleColor.Green);
-                Console.Write("\n  ("); /**/ Snowbird.Write("0", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red, ConsoleColor.White);
+                Console.Write("\n\t\t\t\t\t\tWelcome to "); /**/ Snowbird.Write("Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White);
+                Console.Write("!\n\n\t("); /**/ Snowbird.Write("1", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Register", ConsoleColor.Green);
+                Console.Write("\t("); /**/ Snowbird.Write("2", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Login", ConsoleColor.Blue);
+                Console.Write("\n\n\t("); /**/ Snowbird.Write("0", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
 
                 switch (int.Parse(Snowbird.KeyPressed()))
                 {

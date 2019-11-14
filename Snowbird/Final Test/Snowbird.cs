@@ -137,16 +137,22 @@ namespace Final_Test {
         /// Make the program exit safely and nicely
         /// </summary>
         public static void Exit() {
-            Console.Clear();
-            Console.Write("Are you sure you want to ");
-            Write("QUIT",ConsoleColor.Red, ConsoleColor.White);
-            Console.Write("? ("); /**/ Write("y", ConsoleColor.Yellow); /**/ Console.Write("/"); /**/ Write("n", ConsoleColor.Yellow); /**/ Console.WriteLine(")");
+            while (true) {
+                Console.Clear();
+                Console.Write("Are you sure you want to ");
+                Write("QUIT", ConsoleColor.Red);
+                Console.Write("? ("); /**/ Write("y", ConsoleColor.Yellow); /**/ Console.Write("/"); /**/ Write("n", ConsoleColor.Yellow); /**/ Console.WriteLine(")");
 
-            if (KeyPressed().ToLower() == "y") {
-                running = false;
-                WriteLine("Quitting...", ConsoleColor.Red, ConsoleColor.White);
-                System.Threading.Thread.Sleep(2000);
-                System.Environment.Exit(1);
+                string input = KeyPressed().ToLower();
+
+                if (input == "y") {
+                    running = false;
+                    WriteLine("Quitting...", ConsoleColor.Red);
+                    System.Threading.Thread.Sleep(1000);
+                    System.Environment.Exit(1);
+                } else if(input == "n") {
+                    break;
+                }
             }
         }
 

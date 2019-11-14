@@ -26,7 +26,7 @@ namespace Final_Test.Menus {
                     if (type == "0") {
                         string s = "FROM users WHERE email='" + identifier + "' AND password='" + password + "';";
                         if (Snowbird.db.Count("SELECT COUNT(*) " + s) == 1) {
-                            //Console.Clear();
+                            
                             Console.WriteLine("Welcome {0}! ({1})", Snowbird.db.Select("SELECT username " + s, 1, new string[1]{"username"})[0][0], Snowbird.db.Select("SELECT id " + s, 1, new string[1] { "id" })[0][0]);
                             break;
                         }
@@ -40,9 +40,13 @@ namespace Final_Test.Menus {
 
                             if( Snowbird.db.Count(getWalletCount) == 0 )
                                 AddWallet(Snowbird.user.UserId, 0);
-
+                            
                             Snowbird.user.WalletCount = Snowbird.db.Count(getWalletCount);   
                             Snowbird.user.Wallets = GetWallets(Snowbird.user.UserId);
+
+                            Snowbird.user.TransactionCount = Snowbird.db.Count("SELECT COUNT(*) FROM transactions t RIGHT JOIN wallets w ON t.wallet_id = w.id WHERE w.user_id='" + Snowbird.user.UserId + "';");
+                            Snowbird.user.Transactions = GetTransactions(Snowbird.user.UserId);
+                            
                             break;
 
                         }
@@ -68,6 +72,14 @@ namespace Final_Test.Menus {
         /// <returns>A nested string type List of all the wallet datas</returns>
         public static List<string>[] GetWallets(string userId) {
             return Snowbird.db.Select("SELECT * FROM wallets WHERE user_id='" + userId + "' ORDER BY type;", 9, new string[9] { "id", "user_id", "type", "amount", "currency", "account_name", "account_number", "description", "created_at" });
+        }
+        /// <summary>
+        /// Grabs all the information for all of the User's transactions
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <returns>A nested string type List of all the transactions datas</returns>
+        public static List<string>[] GetTransactions(string userId) {
+            return Snowbird.db.Select("SELECT * FROM transactions t RIGHT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + userId + "' ORDER BY t.id;", 8, new string[8] { "id", "wallet_id", "type", "amount", "fromWalletId", "toWalletId", "description", "created_at" });
         }
 
         /// <summary>
