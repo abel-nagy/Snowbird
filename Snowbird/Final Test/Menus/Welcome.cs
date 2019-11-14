@@ -4,7 +4,8 @@ namespace Final_Test.Menus {
     public static class Welcome {
 
         public static void Run() {
-            while (Snowbird.Running)
+            bool isWelcome = true;
+            while (Snowbird.Running && isWelcome)
             {
                 Console.Clear();
                 Console.WriteLine("### Házi Pénztár ###\n");
@@ -26,6 +27,7 @@ namespace Final_Test.Menus {
                         break;
                     case 2:
                         Login.Run();
+                        isWelcome = false;
                         break;
                     default: break;
                 }

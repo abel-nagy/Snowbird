@@ -77,7 +77,7 @@ namespace Final_Test.Menus {
 
                     Console.Clear();
                     Console.WriteLine("Password can be any length and character.");
-                    Console.Write("Password:       ");
+                    Console.Write("Password: ");
                     password = Snowbird.getHashedPass();
 
                     Console.Write("Password again: ");
@@ -87,6 +87,7 @@ namespace Final_Test.Menus {
 
                 Console.Write("Your data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
                 if (Console.ReadLine() == "y") break;
+
             }
 
             DateTime myDateTime = DateTime.Now;
@@ -94,7 +95,7 @@ namespace Final_Test.Menus {
             
             string query = "INSERT INTO `users` (`email`, `username`, `password`, `created_at`) VALUES('" + email + "', '" + username + "', '" + password + "', '" + dateTime + "');";
             Snowbird.db.NonQuery(query);
-            Welcome.Run();
+            //Welcome.Run();
         }
 
     }
