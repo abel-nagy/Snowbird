@@ -30,34 +30,78 @@ namespace Final_Test {
             
             string connectionString  = "SERVER=" + server + ";DATABASE=" + database + ";UID=" + uid + ";PASSWORD=" + password + ";";
             connection = new MySqlConnection(connectionString);
+
+            try {
+
+            } catch(Exception ex) {
+
+            }
         }
 
 
         // Open connection to database
         private bool OpenConnection() {
-            try {
-                connection.Open();
-                return true;
-            } catch (MySqlException ex) {
-                Console.WriteLine("\n");
-                switch (ex.Number) {
-                    case 0:
-                        Console.WriteLine("Cannot connect to server. Contact administrator!");
-                        break;
-                    case 1045:
-                        Console.WriteLine("Invalid username/password, please try again!");
-                        break;
-                    default:
-                        Console.WriteLine("We have no idea what happened. Please stay tuned! p.s.: FIX THIS DAMNED PROGRAM!!!");
-                        break;
+
+            bool retry = true;
+
+            while(retry) {
+
+                retry = false;
+
+                try {
+                    connection.Open();
+                    return true;
+                } catch(MySqlException ex) {
+
+                    bool runThis = true;
+
+                    while(runThis) {
+
+                        Console.Clear();
+                        Console.Write( "\n\t\t\t\t\t\tWelcome to " ); /**/
+                        Snowbird.Write( "Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White ); /**/
+                        Console.WriteLine( "! \n\n" );
+
+                        switch(ex.Number) {
+                            case 0:
+                                Console.WriteLine( "Cannot connect to server. Contact administrator!" );
+                                break;
+                            case 1045:
+                                Console.WriteLine( "Invalid SQL server username/password, please try again!" );
+                                break;
+                            case 1042:
+                                Console.WriteLine( "\tOur database servers may be down! Please stay tuned and try again later!" );
+                                break;
+                            default:
+                                Console.WriteLine( "We have no idea what happened. Please stay tuned and read below! p.s.: FIX THIS DAMNED PROGRAM!!!" );
+                                Console.WriteLine( ex.Message );
+                                break;
+                        }
+
+                        Console.Write( "\n\tRetry? (" ); /**/
+                        Snowbird.Write( "Y", ConsoleColor.Yellow ); /**/
+                        Console.Write( "/" ); /**/
+                        Snowbird.Write( "N", ConsoleColor.Yellow ); /**/
+                        Console.WriteLine( ")" );
+
+                        ConsoleKeyInfo input = Console.ReadKey( true );
+                        switch(input.Key) {
+                            case ConsoleKey.N:
+                                Snowbird.Exit();
+                                break;
+                            case ConsoleKey.Y:
+                                retry = true;
+                                runThis = false;
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                    }
                 }
-
-                Console.WriteLine("\nExitting program...");
-                Console.ReadKey();
-                System.Environment.Exit(1);
-
-                return false;
             }
+
+            return true;
         }
 
         // Close connection
@@ -114,7 +158,7 @@ namespace Final_Test {
             }
 
             // Open connection
-            if (this.OpenConnection()) {
+            if (OpenConnection()) {
                 try {
 
                     // Create command
@@ -139,7 +183,7 @@ namespace Final_Test {
                 }
 
                 // Close Connection
-                this.CloseConnection();
+                CloseConnection();
             }
 
             // Return list to be displayed
@@ -156,7 +200,7 @@ namespace Final_Test {
             int Count = -1;
 
             // Open connection
-            if (this.OpenConnection()) {
+            if (OpenConnection()) {
                 try {
                     // Create MySql command
                     MySqlCommand cmd = new MySqlCommand(query, connection);
@@ -169,7 +213,7 @@ namespace Final_Test {
                 }
 
                 // Close connection
-                this.CloseConnection();
+                CloseConnection();
             }
 
             return Count;
