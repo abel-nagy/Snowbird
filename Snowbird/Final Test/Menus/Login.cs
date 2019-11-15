@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Security;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Final_Test.Menus {
     public static class Login {
@@ -12,7 +13,9 @@ namespace Final_Test.Menus {
                 string identifier = "", password = "", type = "1";
 
                 Console.Clear();
-                Console.Write("Username/email: ");
+                Console.Clear();
+                Console.Write("\n\t\t\t\t\t\tWelcome to "); /**/ Snowbird.Write("Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White);
+                Console.WriteLine("!"); /**/ Snowbird.Write("\n\n\tUsername/email: ", ConsoleColor.Blue);
                 identifier = Console.ReadLine();
 
                 if (identifier.Length >= 6) {
@@ -20,7 +23,7 @@ namespace Final_Test.Menus {
                     string pattern = "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
                     if (Regex.IsMatch(identifier, pattern)) type = "0";
 
-                    Console.Write("Password: ");
+                    Snowbird.Write("\n\tPassword:       ", ConsoleColor.DarkRed);
                     password = Snowbird.GetHashedPass();
 
                     if (type == "0") {
@@ -46,7 +49,9 @@ namespace Final_Test.Menus {
 
                             Snowbird.user.TransactionCount = Snowbird.db.Count("SELECT COUNT(*) FROM transactions t RIGHT JOIN wallets w ON t.wallet_id = w.id WHERE w.user_id='" + Snowbird.user.UserId + "';");
                             Snowbird.user.Transactions = GetTransactions(Snowbird.user.UserId);
-                            
+
+                            Snowbird.Login = false;
+
                             break;
 
                         }
@@ -92,12 +97,13 @@ namespace Final_Test.Menus {
             if (type == 0) {
                 Console.Clear();
                 Console.WriteLine("Create your first wallets\n");
-                float amount = 0;
+                double amount = 0.0;
                 string currency = "huf";
 
                 // Amount
                 Console.Write("Amount: ");
-                amount = Convert.ToSingle(Snowbird.GetNumbers());
+                amount = double.Parse(Snowbird.GetNumbers(), CultureInfo.InvariantCulture.NumberFormat);
+                Snowbird.WriteLine(amount + "", ConsoleColor.Blue);
 
                 Console.WriteLine("Currency:");
                 Console.Write("  ("); /**/ Snowbird.Write("1", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("HUF", ConsoleColor.Green, ConsoleColor.Gray);
@@ -119,7 +125,9 @@ namespace Final_Test.Menus {
                 DateTime myDateTime = DateTime.Now;
                 string dateTime = myDateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
-                string query = "INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) VALUES (NULL, '" + userId + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
+                string query = $"INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) " +
+                               $"VALUES (NULL, @u, @t, , '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
+                //               VALUES (NULL, '" + userId + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
                 Snowbird.db.NonQuery(query);
             }
 
