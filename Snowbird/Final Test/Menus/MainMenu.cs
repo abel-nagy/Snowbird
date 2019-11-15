@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Final_Test.Menus {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class MainMenu {      // by Ábel
 
         private static List<string>[] wallets;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Run() {
 
             bool isMainMenu = true;
@@ -58,8 +64,11 @@ namespace Final_Test.Menus {
                         addWallets.Run();
                         break;
                     default:
-                        if (Regex.Match(Convert.ToString(input.KeyChar.ToString()), "^[1-9]*$").Success && Convert.ToInt32(input) <= Snowbird.user.WalletCount) {
-                            int choosenWallet = int.Parse(input.KeyChar.ToString());
+                        string inputString = "";
+                        inputString += input.KeyChar;
+                        int choosenWallet = int.Parse(inputString);
+
+                        if (Regex.Match(inputString, "^[1-9]*$").Success && choosenWallet <= Snowbird.user.WalletCount) {
                             Wallet(int.Parse(wallets[0][choosenWallet - 1]), choosenWallet - 1);
                         }
                         break;
@@ -111,14 +120,13 @@ namespace Final_Test.Menus {
                             } else {
                                 expenseMonth += Convert.ToInt32(trans[3][i]);
                             }
-                        } else if (now.Month > transDate.Month) {
+                        } else if (now.Month > transDate.Month && now.Year == transDate.Year) {
                             amountMonthBegin += Convert.ToInt32(trans[2][i]) * Convert.ToInt32(trans[3][i]);
                         }
-
-                        amountMonthEnd = amountMonthBegin + incomeMonth - expenseMonth;
-
                     }
                 }
+
+                amountMonthEnd = amountMonthBegin + incomeMonth - expenseMonth;
 
                 Snowbird.WriteLine("\n\t\tIncome:     " + incomeMonth, ConsoleColor.DarkGreen);
                 Snowbird.WriteLine("\t\tExpense:    " + expenseMonth, ConsoleColor.DarkRed);
@@ -140,7 +148,7 @@ namespace Final_Test.Menus {
                     Snowbird.WriteLine("" + amountMonthEnd, ConsoleColor.DarkRed);
 
                 Console.Write("\n\n\t("); /**/ Snowbird.Write("T", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Add Transaction", ConsoleColor.DarkCyan);
-                Console.Write("\t("); /**/ Snowbird.Write("0", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
+                Console.Write("\t("); /**/ Snowbird.Write("Q", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
 
                 ConsoleKeyInfo input = Console.ReadKey(true);
                 switch(input.Key) {
