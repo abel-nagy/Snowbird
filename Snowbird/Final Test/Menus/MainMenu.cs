@@ -66,10 +66,12 @@ namespace Final_Test.Menus {
                     default:
                         string inputString = "";
                         inputString += input.KeyChar;
-                        int choosenWallet = int.Parse(inputString);
 
-                        if (Regex.Match(inputString, "^[1-9]*$").Success && choosenWallet <= Snowbird.user.WalletCount) {
-                            Wallet(int.Parse(wallets[0][choosenWallet - 1]), choosenWallet - 1);
+                        if (Regex.Match(inputString, "^[1-9]*$").Success) {
+                            int choosenWallet = int.Parse( inputString );
+                            if(choosenWallet <= Snowbird.user.WalletCount) {
+                                Wallet( int.Parse( wallets[0][choosenWallet - 1] ), choosenWallet - 1 );
+                            }
                         }
                         break;
                 }
@@ -184,7 +186,7 @@ namespace Final_Test.Menus {
 
         }
 
-        public static void Transactions() {
+        public static void Transactions(DateTime date, int wallet, string walletId) {
 
         }
 
@@ -214,20 +216,6 @@ namespace Final_Test.Menus {
                 }
             }
             return new DateTime(year, month, 1);
-        }
-
-        public static void AddTransaction() {
-
-            Console.Clear();
-            Console.WriteLine("What type of transaction do you want to add?");
-            Console.Write("  ("); /**/ Snowbird.Write("1", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Income", ConsoleColor.Green, ConsoleColor.Gray);
-            Console.Write("  ("); /**/ Snowbird.Write("2", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Expense", ConsoleColor.Green, ConsoleColor.Gray);
-            Console.Write("  ("); /**/ Snowbird.Write("3", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Transfer", ConsoleColor.Green, ConsoleColor.Gray);
-
-        }
-
-        public static void Transfer() {
-
         }
 
     }
