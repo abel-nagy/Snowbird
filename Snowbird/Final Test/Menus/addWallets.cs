@@ -82,27 +82,29 @@ namespace Final_Test.Menus
 
         public static void AddTransaction() {
 
-            bool isTrans = true;
+            bool runThis = true;
 
-            while (isTrans) {
+            while (runThis) {
 
                 Console.Clear();
                 Console.Write( "\n\t\t\t\t\t\tWelcome " ); /**/
                 Snowbird.Write( Snowbird.user.Username, ConsoleColor.Blue );
-                Console.WriteLine( "! \n\n\t- What type of transaction do you want to add?" );
+                Console.WriteLine( "! \n\n\t- What type of transaction do you want to add?\n" );
                 Console.Write( "\t\t(" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "Income", ConsoleColor.DarkGreen );
                 Console.Write( "\t\t(" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "Expense", ConsoleColor.DarkRed );
                 Console.Write( "\t\t(" ); /**/ Snowbird.Write( "3", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.Write( "Transfer", ConsoleColor.DarkGreen ); /**/ Console.WriteLine(" (To your wallets)");
-                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "3", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.Write( "Transfer", ConsoleColor.DarkRed ); /**/ Console.WriteLine(" (To bank account)");
-                
-                bool isAdd = false;
+                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "4", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.Write( "Transfer", ConsoleColor.DarkRed ); /**/ Console.WriteLine(" (To bank account)");
 
+                Console.Write( "\n\n\t(" ); /**/ Snowbird.Write("ESC", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "Go Back", ConsoleColor.Cyan);
+                Console.Write( "\n\t(" ); /**/ Snowbird.Write( "L", ConsoleColor.Yellow ); /**/  Console.Write( ") " ); Snowbird.WriteLine( "  Logout", ConsoleColor.Red );
+                Console.Write( "\t(" ); /**/ Snowbird.Write( "Q", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "  Quit", ConsoleColor.Red );
+                
                 ConsoleKeyInfo input = Console.ReadKey( true );
 
                 switch(input.Key) {
                     
                     case ConsoleKey.Escape:
-                        isTrans = false;
+                        runThis = false;
                         break;
                     case ConsoleKey.Q:
                         Snowbird.Exit();
@@ -118,8 +120,10 @@ namespace Final_Test.Menus
                             int inputNumber = int.Parse( inputString );
                             switch(inputNumber) {
                                 case 1:
+                                    AddLocalTransaction();
                                     break;
                                 case 2:
+                                    AddLocalTransaction(false);
                                     break;
                                 case 3:
                                     break;
@@ -136,6 +140,38 @@ namespace Final_Test.Menus
                 }
                 
 
+            }
+            
+        }
+
+        public static void AddLocalTransaction(bool isIncome = true) {
+
+            bool runThis = true;
+
+            while(runThis) {
+                Console.Clear();
+                Console.Write( "\n\t\t\t\t\t\tWelcome " ); /**/
+                Snowbird.Write( Snowbird.user.Username, ConsoleColor.Blue );
+
+                Console.WriteLine( "! \n\n\t- \n" );
+
+
+                ConsoleKeyInfo input = Console.ReadKey( true );
+
+                switch(input.Key) {
+
+                    case ConsoleKey.Escape:
+                        runThis = false;
+                        break;
+                    case ConsoleKey.Q:
+                        Snowbird.Exit();
+                        break;
+                    case ConsoleKey.L:
+                        Snowbird.Logout();
+                        break;
+                    default:
+                        break;
+                }
             }
             
         }
