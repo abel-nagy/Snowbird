@@ -56,7 +56,11 @@ namespace Final_Test.Menus {
                                 Snowbird.user = new User( user_id );
 
                                 if(Snowbird.user.WalletCount == 0) {
-                                    AddWallet( Snowbird.user.UserId, 0 );
+                                    double initialAmount = AddWallet( Snowbird.user.UserId, 0 );
+                                    Snowbird.user.Update();
+                                    string query = "INSERT INTO transactions (id, wallet_id, type, amount, fromWalletId, toWalletId, description, created_at) " +
+                                                   "VALUES (NULL, '" + Snowbird.user.Wallets[0][0] + "', 1, '" + initialAmount + "', NULL, NULL, 'Initial amount', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "');";
+                                    Snowbird.db.NonQuery(query);
                                     Snowbird.user.Update();
                                 }
 
@@ -97,32 +101,25 @@ namespace Final_Test.Menus {
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <param name="type">Wallet type</param>
-        public static void AddWallet(string userId, int type) {
+        public static double AddWallet(string userId, int type) {
+
+            double amount = -1.0;
 
             if(type == 0) {
                 Console.Clear();
                 Console.WriteLine( "Create your first wallets\n" );
-                double amount = 0.0;
                 string currency = "huf";
 
                 // Amount
                 Console.Write( "Amount: " );
                 amount = double.Parse( Snowbird.GetNumbers(), CultureInfo.InvariantCulture.NumberFormat );
                 Snowbird.WriteLine( amount + "", ConsoleColor.Blue );
-
-                Console.WriteLine( "Currency:" );
-                Console.Write( "  (" ); /**/
-                Snowbird.Write( "1", ConsoleColor.Yellow ); /**/
-                Console.Write( ") " );
-                Snowbird.WriteLine( "HUF", ConsoleColor.Green, ConsoleColor.Gray );
-                Console.Write( "  (" ); /**/
-                Snowbird.Write( "2", ConsoleColor.Yellow ); /**/
-                Console.Write( ") " );
-                Snowbird.WriteLine( "EUR", ConsoleColor.Green, ConsoleColor.Gray );
-                Console.Write( "  (" ); /**/
-                Snowbird.Write( "3", ConsoleColor.Yellow ); /**/
-                Console.Write( ") " );
-                Snowbird.WriteLine( "USD", ConsoleColor.Green, ConsoleColor.Gray );
+                
+                //Console.WriteLine( "Currency:" );
+                //Console.Write( "  (" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "HUF", ConsoleColor.Green, ConsoleColor.Gray );
+                //Console.Write( "  (" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "EUR", ConsoleColor.Green, ConsoleColor.Gray );
+                //Console.Write( "  (" ); /**/ Snowbird.Write( "3", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "USD", ConsoleColor.Green, ConsoleColor.Gray );
+                /*
                 switch(Snowbird.KeyPressed()) {
                     case "1":
                         currency = "huf";
@@ -135,16 +132,17 @@ namespace Final_Test.Menus {
                         break;
                     default:
                         break;
-                }
+                }*/
 
                 DateTime myDateTime = DateTime.Now;
                 string dateTime = myDateTime.ToString( "yyyy-MM-dd HH:mm:ss" );
 
-                string query = $"INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) " +
-                               $"VALUES (NULL, @u, @t, , '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
-                //               VALUES (NULL, '" + userId + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
+                string query = "INSERT INTO wallets (id, user_id, type, amount, currency, account_name, account_number, description, created_at) " +
+                               "VALUES (NULL, '" + userId + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
                 Snowbird.db.NonQuery( query );
             }
+
+            return amount;
 
         }
 
