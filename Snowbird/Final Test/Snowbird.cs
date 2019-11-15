@@ -69,7 +69,7 @@ namespace Final_Test {
                 key = Console.ReadKey( true );
 
                 // Ignore any key out of range
-                if(((int)key.Key) >= 32 && ((int)key.Key) <= 126) {
+                if(((int)key.Key) >= 32 && ((int)key.Key) <= 126 || char.ToString(key.KeyChar) == ".") {
                     // Append the character to the password
                     input += key.KeyChar;
                     Console.Write( key.KeyChar );
