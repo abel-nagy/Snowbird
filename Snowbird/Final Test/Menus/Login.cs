@@ -9,89 +9,110 @@ namespace Final_Test.Menus {
 
         public static void Run() {
 
-            bool islogin = true, isFailed = false;
+            bool islogin = true, failed = false;
 
-            // -- Repeat ------
-            while(islogin) {
-                string username = "", password = "";
-
-                Console.Clear();
-                Console.Write( "\n\t\t\t\t\t\tWelcome to " ); /**/
-                Snowbird.Write( "Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White );
-                Console.WriteLine( "! \n\n" );
-
-                if(isFailed) {
-                    Snowbird.WriteLine( "\tWrong login credidentials! Let's try again!", ConsoleColor.Red );
-                } else {
-                    Console.WriteLine();
-                }
-
-                isFailed = false;
-
-                Snowbird.Write( "\n\n\tUsername: ", ConsoleColor.Blue );
-                string ifCommand = Snowbird.GetInput();
-
-                if(ifCommand == "!Q!") {
-                    islogin = false;
-                } else {
-                    username = ifCommand;
-
-                    if(username.Length >= 6) {
-
-                        Snowbird.Write( "\n\tPassword: ", ConsoleColor.DarkRed );
-                        ifCommand = Snowbird.GetHashedPass();
-
-                        if(ifCommand == "!Q!") {
-                            islogin = false;
-                        } else {
-
-                            password = ifCommand;
-
-                            string user_id = GetUserId( username, password );
-
-                            if(user_id == "!E!")
-                                isFailed = true;
-                            else if(int.Parse( user_id ) >= 100000000) {
-
-                                Snowbird.user = new User( user_id );
-
-                                if(Snowbird.user.WalletCount == 0) {
-                                    double initialAmount = AddWallet( Snowbird.user.UserId, 0 );
-                                    Snowbird.user.Update();
-                                    string query = "INSERT INTO transactions (id, wallet_id, type, amount, fromWalletId, toWalletId, description, created_at) " +
-                                                   "VALUES (NULL, '" + Snowbird.user.Wallets[0][0] + "', 1, '" + initialAmount + "', NULL, NULL, 'Initial amount', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "');";
-                                    Snowbird.db.NonQuery(query);
-                                    Snowbird.user.Update();
-                                }
-
-                                Snowbird.Login = false;
-                                islogin = false;
-
-                            }
-
-                        }
-                    } else {
-                        isFailed = true;
-                    }
-
-                }
-            }
-            // ----------------
+            // ==== Repeat Login screen ===============================================================================================================================================================
+            /**/
+            /**/    while(islogin) {
+            /**/        string username = "", password = "";
+            /**/        
+            /**/        // ==== Greeting screen ============================================================================
+            /**/        /**/
+            /**/        /**/    Console.Clear();
+            /**/        /**/    Console.Write( "\n\t\t\t\t\t\tWelcome to " ); /**/ Snowbird.Write( "Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White ); /**/ Console.WriteLine( "! \n\n" );
+            /**/        /**/    
+            /**/        /**/    if(failed) {
+            /**/        /**/        Snowbird.WriteLine( "\tWrong login credidentials! Let's try again!", ConsoleColor.Red );
+            /**/        /**/        failed = false;
+            /**/        /**/    } else
+            /**/        /**/        Console.WriteLine();
+            /**/        /**/
+            /**/        // =================================================================================================
+            /**/        
+            /**/        
+            /**/        // ==== Username Input =========================================
+            /**/        /**/
+            /**/        /**/    Snowbird.Write( "\n\n\tUsername: ", ConsoleColor.Blue );
+            /**/        /**/    string input = Snowbird.GetInput();
+            /**/        /**/
+            /**/        //==============================================================
+            /**/        
+            /**/        if(input == "!Q!")          // -- Quit from input -----
+            /**/            islogin = false;
+            /**/
+            /**/        else {
+            /**/            username = input;
+            /**/        
+            /**/            if(username.Length >= 6 && username.Length <= 20) {      // Username must be at least 6 characters but maximum 20 characters long
+            /**/            
+            /**/                // ==== Password Input =========================================
+            /**/                /**/
+            /**/                /**/    Snowbird.Write( "\tPassword: ", ConsoleColor.DarkRed );
+            /**/                /**/    input = Snowbird.GetHashedPass();
+            /**/                /**/
+            /**/                //==============================================================
+            /**/                
+            /**/                if(input == "!Q!")          // -- Quit from input -----
+            /**/                    islogin = false;
+            /**/
+            /**/                else {
+            /**/                
+            /**/                    password = input;
+            /**/                    
+            /**/                    string user_id = ValidateLogin( username, password );       // Validate/Log in user and return the UserID
+            /**/                    
+            /**/                    if(user_id == "!E!")        // -- Quit from input -----
+            /**/                        failed = true;
+            /**/                    else if(int.Parse( user_id ) >= 100000000) {        // Just to make sure the returned value is a valid UserID
+            /**/                    
+            /**/                        Snowbird.user = new User( user_id );        // Save all current data locally
+            /**/                        
+            /**/                        // ==== Add first wallet for freshly created user =====================================================================================================================
+            /**/                        /**/
+            /**/                        /**/    if(Snowbird.user.WalletCount == 0) {
+            /**/                        /**/        double initialAmount = AddWallet( Snowbird.user.UserId, 0 );
+            /**/                        /**/        Snowbird.user.Update();
+            /**/                        /**/        string query = "INSERT INTO transactions (id,   wallet_id,                             type, amount,                  fromWalletId, toWalletId, description,      created_at) " +
+            /**/                        /**/                       "VALUES                   (NULL, '" + Snowbird.user.Wallets[0][0] + "', 1,    '" + initialAmount + "', NULL,         NULL,       'Initial amount', '" + DateTime.Now.ToString( "yyyy-MM-dd HH:mm:ss" ) + "');";
+            /**/                        /**/        Snowbird.db.NonQuery( query );
+            /**/                        /**/        Snowbird.user.Update();
+            /**/                        /**/    }
+            /**/                        /**/
+            /**/                        // ====================================================================================================================================================================
+            /**/                        
+            /**/                        // ==== Quit Login screen to log in User ========
+            /**/                        /**/
+            /**/                        /**/    Snowbird.Login = false;
+            /**/                        /**/    islogin = false;
+            /**/                        /**/
+            /**/                        // =============================================
+            /**/                        
+            /**/                    }
+            /**/                }
+            /**/            } else
+            /**/                failed = true;
+            /**/                
+            /**/        }
+            /**/    }
+            /**/
+            // ========================================================================================================================================================================================
         }
 
         /// <summary>
-        /// Get the User ID for a given Username
+        /// Validate/Log in user and return the UserID
         /// </summary>
-        /// <param name="identifier">Username/Email</param>
+        /// <param name="username">Username/Email</param>
         /// <param name="password">User password</param>
-        /// <returns>9 digit ID</returns>
-        public static string GetUserId(string identifier, string password) {
-            int mathcing = Snowbird.db.Count("SELECT COUNT(*) FROM users WHERE (username='" + identifier + "' OR email='" + identifier + "') AND password='" + password + "';");
+        /// <returns>UserID</returns>
+        public static string ValidateLogin(string username, string password) {
+            int mathcing = Snowbird.db.Count( "SELECT COUNT(*) FROM users WHERE username='" + username + "' AND password='" + password + "';" );
             if(mathcing == 1)
-                return Snowbird.db.Select( "SELECT id FROM users WHERE (username='" + identifier + "' OR email='" + identifier + "') AND password='" + password + "';", 1, new string[1] { "id" } )[0][0];
-            else if(mathcing > 1 || mathcing < 0)
-                Console.WriteLine("\n\n\tWOW! You made the impossible possible!");
-            
+                return Snowbird.db.Select( "SELECT id FROM users WHERE username='" + username + "' AND password='" + password + "';", 1, new string[1] { "id" } )[0][0];
+            else if(mathcing > 1 || mathcing < 0) {
+                Console.WriteLine( "\n\n\tWOW! You made the impossible possible!" );
+                Console.ReadKey();
+            }
+
             return "!E!";
         }
 
@@ -114,7 +135,7 @@ namespace Final_Test.Menus {
                 Console.Write( "Amount: " );
                 amount = double.Parse( Snowbird.GetNumbers(), CultureInfo.InvariantCulture.NumberFormat );
                 Snowbird.WriteLine( amount + "", ConsoleColor.Blue );
-                
+
                 //Console.WriteLine( "Currency:" );
                 //Console.Write( "  (" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "HUF", ConsoleColor.Green, ConsoleColor.Gray );
                 //Console.Write( "  (" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "EUR", ConsoleColor.Green, ConsoleColor.Gray );

@@ -84,7 +84,7 @@ namespace Final_Test.Menus {
             while (runThis) {
 
                 Console.Clear();
-                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.WriteLine(Snowbird.user.Username, ConsoleColor.Blue);
+                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.WriteLine(Snowbird.user.Username, ConsoleColor.Blue); /**/ Console.WriteLine("!");
 
                 Console.Write("\n\t- Summary of your ");
 
