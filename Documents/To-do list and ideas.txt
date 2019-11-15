@@ -11,3 +11,4 @@ To-do:
   - add help interface
 
 ideas:
+  - beautify code
