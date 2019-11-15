@@ -1,0 +1,13 @@
+Snowbird ideas and to-do list
+
+To-do:
+  - add transaction
+    - add income
+    - add expense
+    - add wallet transfer
+    - add bank transfer
+  - add currency conversion
+  - improve add wallet method
+  - add help interface
+
+ideas:

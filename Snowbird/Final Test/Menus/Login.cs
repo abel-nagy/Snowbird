@@ -13,7 +13,7 @@ namespace Final_Test.Menus {
 
             // -- Repeat ------
             while(islogin) {
-                string identifier = "", password = "", type = "1";
+                string username = "", password = "";
 
                 Console.Clear();
                 Console.Write( "\n\t\t\t\t\t\tWelcome to " ); /**/
@@ -28,17 +28,17 @@ namespace Final_Test.Menus {
 
                 isFailed = false;
 
-                Snowbird.Write( "\n\n\tUsername/email: ", ConsoleColor.Blue );
+                Snowbird.Write( "\n\n\tUsername: ", ConsoleColor.Blue );
                 string ifCommand = Snowbird.GetInput();
 
                 if(ifCommand == "!Q!") {
                     islogin = false;
                 } else {
-                    identifier = ifCommand;
+                    username = ifCommand;
 
-                    if(identifier.Length >= 6) {
+                    if(username.Length >= 6) {
 
-                        Snowbird.Write( "\n\tPassword:       ", ConsoleColor.DarkRed );
+                        Snowbird.Write( "\n\tPassword: ", ConsoleColor.DarkRed );
                         ifCommand = Snowbird.GetHashedPass();
 
                         if(ifCommand == "!Q!") {
@@ -47,7 +47,7 @@ namespace Final_Test.Menus {
 
                             password = ifCommand;
 
-                            string user_id = GetUserId( identifier, password );
+                            string user_id = GetUserId( username, password );
 
                             if(user_id == "!E!")
                                 isFailed = true;
@@ -107,7 +107,7 @@ namespace Final_Test.Menus {
 
             if(type == 0) {
                 Console.Clear();
-                Console.WriteLine( "Create your first wallets\n" );
+                Console.WriteLine( "Create your first wallet\n" );
                 string currency = "huf";
 
                 // Amount

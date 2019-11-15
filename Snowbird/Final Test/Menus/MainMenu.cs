@@ -9,22 +9,18 @@ namespace Final_Test.Menus {
     public static class MainMenu {      // by Ábel
 
         private static List<string>[] wallets;
-
-        /// <summary>
-        /// 
-        /// </summary>
+        
         public static void Run() {
 
             bool runThis = true;
+            wallets = Snowbird.user.Wallets;
 
             while(runThis) {
-
-                wallets = Snowbird.user.Wallets;
-
+                
                 Console.Clear();
-                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue);
+                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue); /**/ Console.WriteLine("!\n\n");
 
-                Console.WriteLine("! \n\n\t- Your wallets");
+                Console.WriteLine("\t- Your wallets");
 
                 for (int i = 0; i < Snowbird.user.WalletCount && Snowbird.user.WalletCount <= 9; i++) {
 
@@ -61,7 +57,7 @@ namespace Final_Test.Menus {
                         Snowbird.Logout();
                         break;
                     case ConsoleKey.N:
-                        addWallets.Run();
+                        Wallet.Run();
                         break;
                     default:
                         string inputString = "";
@@ -70,7 +66,7 @@ namespace Final_Test.Menus {
                         if (Regex.Match(inputString, "^[1-9]*$").Success) {
                             int choosenWallet = int.Parse( inputString );
                             if(choosenWallet <= Snowbird.user.WalletCount) {
-                                Wallet( int.Parse( wallets[0][choosenWallet - 1] ), choosenWallet - 1 );
+                                ShowWallet( int.Parse( wallets[0][choosenWallet - 1] ), choosenWallet - 1 );
                             }
                         }
                         break;
@@ -80,7 +76,7 @@ namespace Final_Test.Menus {
             
         }
 
-        public static void Wallet(int walletId, int wallet) {
+        public static void ShowWallet(int walletId, int wallet) {
 
             bool runThis = true;
             DateTime now = DateTime.Now;
@@ -181,7 +177,7 @@ namespace Final_Test.Menus {
                         break;
 
                     case ConsoleKey.T:
-                        addWallets.AddTransaction();
+                        Wallet.AddTransaction();
                         break;
                     default:
                         break;

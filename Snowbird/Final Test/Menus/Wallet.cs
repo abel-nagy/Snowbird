@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Final_Test.Menus
 {
-    public static class addWallets {        // by Patrik
+    public static class Wallet {        // by Patrik
 
         public static void Run()
         {

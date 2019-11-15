@@ -1,0 +1,39 @@
+Table users as U {
+  id int(9) [pk, increment]
+  username varchar(40)
+  email varchar(20)
+  password varchar(256)
+  created_at datetime
+}
+
+Table wallets as W {
+  id int(9) [pk, increment]
+  user_id int(9)
+  type int(1)
+  amount int
+  currency varchar(3)
+  account_name varchar(30)
+  account_number int(24)
+  description varchar(40)
+  created_at datetime
+}
+
+Table transactions as T {
+  id int(9) [pk, increment]
+  wallet_id int(9)
+  type int(1)
+  amount int
+  fromWallet_id int(24)
+  toWallet_id int(24)
+  description varchar(40)
+}
+
+Table currencies {
+  from varchar(3)
+  to varchar(3)
+  multiplier float
+  updated datetime
+ }
+ 
+ Ref: W.user_id > U.id
+ Ref: T.wallet_id > W.id
