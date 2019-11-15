@@ -15,9 +15,9 @@ namespace Final_Test.Menus {
         /// </summary>
         public static void Run() {
 
-            bool isMainMenu = true;
+            bool runThis = true;
 
-            while(isMainMenu) {
+            while(runThis) {
 
                 wallets = Snowbird.user.Wallets;
 
@@ -57,7 +57,7 @@ namespace Final_Test.Menus {
                         Snowbird.Exit();
                         break;
                     case ConsoleKey.L:
-                        isMainMenu = false;
+                        runThis = false;
                         Snowbird.Logout();
                         break;
                     case ConsoleKey.N:
@@ -82,10 +82,10 @@ namespace Final_Test.Menus {
 
         public static void Wallet(int walletId, int wallet) {
 
-            bool isWallet = true;
+            bool runThis = true;
             DateTime now = DateTime.Now;
 
-            while (isWallet) {
+            while (runThis) {
 
                 Console.Clear();
                 Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.WriteLine(Snowbird.user.Username, ConsoleColor.Blue);
@@ -107,7 +107,7 @@ namespace Final_Test.Menus {
 
                 Console.Write(" in "); /**/ Snowbird.WriteLine(now.Year + "-" + now.Month, ConsoleColor.Black, ConsoleColor.White);
 
-                int incomeMonth = 0, expenseMonth = 0, amountMonthBegin = 0, amountMonthEnd = 0;
+                float incomeMonth = 0, expenseMonth = 0, amountMonthBegin = 0, amountMonthEnd = 0;
                 List<string>[] trans = Snowbird.user.Transactions;
 
                 for (int i = 0; i < Snowbird.user.TransactionCount; i++) {
@@ -118,12 +118,12 @@ namespace Final_Test.Menus {
                         if (now.Month == transDate.Month && now.Year == transDate.Year) {
 
                             if (trans[2][i] == "1") {
-                                incomeMonth += Convert.ToInt32(trans[3][i]);
+                                incomeMonth += float.Parse(trans[3][i]);
                             } else {
-                                expenseMonth += Convert.ToInt32(trans[3][i]);
+                                expenseMonth += float.Parse( trans[3][i] );
                             }
                         } else if (now.Month > transDate.Month && now.Year == transDate.Year) {
-                            amountMonthBegin += Convert.ToInt32(trans[2][i]) * Convert.ToInt32(trans[3][i]);
+                            amountMonthBegin += float.Parse( trans[2][i] ) * float.Parse( trans[3][i] );
                         }
                     }
                 }
@@ -149,18 +149,22 @@ namespace Final_Test.Menus {
                 else
                     Snowbird.WriteLine("" + amountMonthEnd, ConsoleColor.DarkRed);
 
-                Console.Write("\n\n\t("); /**/ Snowbird.Write("T", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Add Transaction", ConsoleColor.DarkCyan);
-                Console.Write("\t("); /**/ Snowbird.Write("Q", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
+                Console.Write( "\n\n\t(" ); /**/ Snowbird.Write("T", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "  Add Transaction", ConsoleColor.Cyan);
+                Console.Write( "\t(" ); /**/ Snowbird.Write("ESC", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "Go Back", ConsoleColor.Cyan);
+                Console.Write( "\n\t(" ); /**/ Snowbird.Write( "L", ConsoleColor.Yellow ); /**/  Console.Write( ") " ); Snowbird.WriteLine( "  Logout", ConsoleColor.Red );
+                Console.Write( "\t(" ); /**/ Snowbird.Write( "Q", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "  Quit", ConsoleColor.Red );
 
                 ConsoleKeyInfo input = Console.ReadKey(true);
                 switch(input.Key) {
 
-                    case ConsoleKey.D0:
-                        isWallet = false;
+                    case ConsoleKey.L:
+                        Snowbird.Logout();
+                        break;
+                    case ConsoleKey.Q:
                         Snowbird.Exit();
                         break;
                     case ConsoleKey.Escape:
-                        isWallet = false;
+                        runThis = false;
                         break;
 
                     case ConsoleKey.UpArrow:
@@ -175,6 +179,7 @@ namespace Final_Test.Menus {
                     case ConsoleKey.RightArrow:
                         now = ChangeMonth(now, false);
                         break;
+
                     case ConsoleKey.T:
                         addWallets.AddTransaction();
                         break;
