@@ -5,7 +5,10 @@ using System.Text.RegularExpressions;
 namespace Final_Test.Menus {
     public static class Register {
         
-        public static void Run() {
+        public static bool Run() {
+
+            bool registered = false;
+
             string email, username, password;
 
             while (true) {
@@ -95,7 +98,10 @@ namespace Final_Test.Menus {
             
             string query = "INSERT INTO `users` (`email`, `username`, `password`, `created_at`) VALUES('" + email + "', '" + username + "', '" + password + "', '" + dateTime + "');";
             Snowbird.db.NonQuery(query);
-            //Welcome.Run();
+
+            registered = true;
+
+            return registered;
         }
 
     }

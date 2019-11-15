@@ -79,7 +79,7 @@ namespace Final_Test {
         public void NonQuery(string query) {
 
             // Open connection
-            if (this.OpenConnection() == true) {
+            if (OpenConnection() == true) {
                 try {
 
                     // Create command and assign the query and connection from the constructor
@@ -93,7 +93,7 @@ namespace Final_Test {
                 }
 
                 // Close connection
-                this.CloseConnection();
+                CloseConnection();
             }
 
         }

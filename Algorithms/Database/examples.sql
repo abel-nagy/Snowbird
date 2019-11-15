@@ -51,8 +51,8 @@ VALUES(
     '56420',
     NULL,
     NULL,
-    'Initial amount',
-    '2019-11-04 10:43:31'
+    'Fizetés',
+    '2019-11-05 10:43:31'
 );
 INSERT INTO `wallets`(          -- Create test Account       (id: 1)
     `id`,
@@ -353,7 +353,7 @@ VALUES(
     NULL,
     NULL,
     'Kenyér', 
-    '2019-11-05 17:06:00'
+    '2019-11-04 17:06:00'
 );
 UPDATE `wallets` SET `amount` = '56030' WHERE `wallets`.`id` = 100000000;
 
@@ -378,3 +378,65 @@ VALUES(
     '2019-11-10 14:08:00'
 );
 UPDATE `wallets` SET `amount` = '11030' WHERE `wallets`.`id` = 100000000;
+
+INSERT INTO `transactions`(
+    `id`,
+    `wallet_id`,
+    `type`,
+    `amount`,
+    `fromWalletId`,
+    `toWalletId`,
+    `description`,
+    `created_at`
+)
+VALUES(
+    NULL,
+    '100000000',
+    '1',
+    '13500',
+    NULL,
+    NULL,
+    'Initial amount',
+    '2019-10-28 18:00:00'
+);
+UPDATE `wallets` SET `amount` = '11030' WHERE `wallets`.`id` = 100000000;
+INSERT INTO `transactions`(
+    `id`,
+    `wallet_id`,
+    `type`,
+    `amount`,
+    `fromWalletId`,
+    `toWalletId`,
+    `description`,
+    `created_at`
+)
+VALUES(
+    NULL,
+    '100000000',
+    '1',
+    '69690',
+    NULL,
+    NULL,
+    'Fizetés',
+    '2019-12-06 14:48:32'
+);
+INSERT INTO `transactions`(
+    `id`,
+    `wallet_id`,
+    `type`,
+    `amount`,
+    `fromWalletId`,
+    `toWalletId`,
+    `description`,
+    `created_at`
+)
+VALUES(
+    NULL,
+    '100000000',
+    '1',
+    '13500',
+    NULL,
+    NULL,
+    'Initial amount',
+    '2019-10-28 18:00:00'
+)
