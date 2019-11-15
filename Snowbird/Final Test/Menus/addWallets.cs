@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Final_Test.Menus
 {
@@ -77,6 +78,7 @@ namespace Final_Test.Menus
             */
 
         }
+        
 
         public static void AddTransaction() {
 
@@ -85,33 +87,54 @@ namespace Final_Test.Menus
             while (isTrans) {
 
                 Console.Clear();
-                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue);
-
-                Console.WriteLine("! \n\n\t- What type of transaction do you want to add?\n");
-
-                Console.Write("\t\t("); /**/ Snowbird.Write("1", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine("Income", ConsoleColor.DarkGreen);
-                Console.Write("\t\t("); /**/ Snowbird.Write("2", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine("Expense", ConsoleColor.DarkRed);
-                Console.Write("\t\t("); /**/ Snowbird.Write("3", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.Write("Transfer", ConsoleColor.DarkRed); /**/ Console.WriteLine(" (To another Bank Account or one of your wallets)");
-
-                int input = Convert.ToInt32( Console.ReadKey() );
+                Console.Write( "\n\t\t\t\t\t\tWelcome " ); /**/
+                Snowbird.Write( Snowbird.user.Username, ConsoleColor.Blue );
+                Console.WriteLine( "! \n\n\t- What type of transaction do you want to add?" );
+                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "Income", ConsoleColor.DarkGreen );
+                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "Expense", ConsoleColor.DarkRed );
+                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "3", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.Write( "Transfer", ConsoleColor.DarkGreen ); /**/ Console.WriteLine(" (To your wallets)");
+                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "3", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.Write( "Transfer", ConsoleColor.DarkRed ); /**/ Console.WriteLine(" (To bank account)");
+                
                 bool isAdd = false;
 
-                switch (input) {
-                    case 48:
+                ConsoleKeyInfo input = Console.ReadKey( true );
+
+                switch(input.Key) {
+                    
+                    case ConsoleKey.Escape:
                         isTrans = false;
                         break;
-                    case 27:
-                        isTrans = false;
+                    case ConsoleKey.Q:
+                        Snowbird.Exit();
+                        break;
+                    case ConsoleKey.L:
+                        Snowbird.Logout();
                         break;
                     default:
-                        if(input > 0 && input < 4)
-                            isAdd = true;
+                        string inputString = "";
+                        inputString += input.KeyChar;
+
+                        if(Regex.Match( inputString, "^[1-4]*$" ).Success) {
+                            int inputNumber = int.Parse( inputString );
+                            switch(inputNumber) {
+                                case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                                default:
+                                    Console.WriteLine("WAIT!!! WHAT THE FUCK??????");
+                                    Console.ReadKey();
+                                    break;
+                            }
+                        }
+
                         break;
                 }
-
-                if(isAdd) {
-
-                }
+                
 
             }
             
