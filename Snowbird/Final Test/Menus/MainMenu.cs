@@ -5,64 +5,77 @@ using System.Text.RegularExpressions;
 namespace Final_Test.Menus {
     public static class MainMenu {      // by Ábel
 
-        private static List<string>[] wallets = Snowbird.user.Wallets;
+        private static List<string>[] wallets;
 
         public static void Run() {
 
-            Console.Clear();
-            Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue);
+            bool isMainMenu = true;
 
-            Console.WriteLine("! \n\n\t- Your wallets");
-            
-            for (int i = 0; i < Snowbird.user.WalletCount && Snowbird.user.WalletCount <= 9; i++) {
+            while(isMainMenu) {
 
-                Console.Write("\n\t\t("); /**/ Snowbird.Write("" + (i + 1), ConsoleColor.Yellow); /**/ Console.Write(") ");
+                wallets = Snowbird.user.Wallets;
 
-                if (wallets[2][i] == "0") {
+                Console.Clear();
+                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue);
 
-                    Snowbird.Write("Wallet", ConsoleColor.Cyan);
-                    
-                } else {
+                Console.WriteLine("! \n\n\t- Your wallets");
 
-                    Snowbird.Write("Account", ConsoleColor.Magenta);
-                    
+                for (int i = 0; i < Snowbird.user.WalletCount && Snowbird.user.WalletCount <= 9; i++) {
+
+                    Console.Write("\n\t\t("); /**/ Snowbird.Write("" + (i + 1), ConsoleColor.Yellow); /**/ Console.Write(") ");
+
+                    if (wallets[2][i] == "0") {
+
+                        Snowbird.Write("Wallet", ConsoleColor.Cyan);
+
+                    } else {
+
+                        Snowbird.Write("Account", ConsoleColor.Magenta);
+
+                    }
+
+                    if (!string.IsNullOrEmpty(wallets[7][i]))
+                        Console.Write(" ({0})", wallets[7][i]);
+                    Console.Write("\n\t\t\t"); /**/ Snowbird.WriteLine(wallets[3][i] + " " + wallets[4][i], ConsoleColor.Green);
+
                 }
 
-                if (!string.IsNullOrEmpty(wallets[7][i]))
-                    Console.Write(" ({0})", wallets[7][i]);
-                Console.Write("\n\t\t\t"); /**/ Snowbird.WriteLine(wallets[3][i] + " " + wallets[4][i], ConsoleColor.Green);
+                Console.Write("\n\n\t("); /**/ Snowbird.Write("N", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("New Wallet/Account", ConsoleColor.DarkCyan);
 
-            }
+                Console.Write("\n\t("); /**/ Snowbird.Write("L", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Logout", ConsoleColor.Red);
+                Console.Write("\t("); /**/ Snowbird.Write("Q", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
 
-            Console.Write("\n\n\n\n\t("); /**/ Snowbird.Write("n", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("New Wallet", ConsoleColor.Red);
-            Console.Write("\n\n\n\n\t("); /**/ Snowbird.Write("0", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
+                ConsoleKeyInfo input = Console.ReadKey(true);
+                switch (input.Key) {
+                    case ConsoleKey.Q:
+                        Snowbird.Exit();
+                        break;
+                    case ConsoleKey.L:
+                        isMainMenu = false;
+                        Snowbird.Logout();
+                        break;
+                    case ConsoleKey.N:
+                        addWallets.Run();
+                        break;
+                    default:
+                        if (Regex.Match(Convert.ToString(input.KeyChar.ToString()), "^[1-9]*$").Success && Convert.ToInt32(input) <= Snowbird.user.WalletCount) {
+                            int choosenWallet = int.Parse(input.KeyChar.ToString());
+                            Wallet(int.Parse(wallets[0][choosenWallet - 1]), choosenWallet - 1);
+                        }
+                        break;
+                }
 
-            string input = Snowbird.KeyPressed();
-            
-            switch(input) {
-                case "0":
-                    Snowbird.Exit();
-                    break;
-                //EZT IRTAM HOZZÁ --- PATRIK
-                case "n":
-                    addWallets.Run();
-                    break;
-                // -------
-                default:
-                    if (Regex.Match(input, "^[1-9]*$").Success) {
-                        int choosenWallet = int.Parse(input);
-                        Wallet(int.Parse(wallets[0][choosenWallet - 1]), choosenWallet - 1);
-                    }
-                    break;
             }
             
         }
 
         public static void Wallet(int walletId, int wallet) {
 
-            DateTime now = new DateTime(2018, 11, 1);
+            bool isWallet = true;
+            DateTime now = DateTime.Now;
 
-            while (true) {
+            while (isWallet) {
+
                 Console.Clear();
                 Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.WriteLine(Snowbird.user.Username, ConsoleColor.Blue);
 
@@ -79,8 +92,7 @@ namespace Final_Test.Menus {
 
                 if (!string.IsNullOrEmpty(wallets[7][wallet]))
                     Console.Write(" ({0})", wallets[7][wallet]);
-
-
+                
 
                 Console.Write(" in "); /**/ Snowbird.WriteLine(now.Year + "-" + now.Month, ConsoleColor.Black, ConsoleColor.White);
 
@@ -127,8 +139,20 @@ namespace Final_Test.Menus {
                 else
                     Snowbird.WriteLine("" + amountMonthEnd, ConsoleColor.DarkRed);
 
+                Console.Write("\n\n\t("); /**/ Snowbird.Write("T", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Add Transaction", ConsoleColor.DarkCyan);
+                Console.Write("\t("); /**/ Snowbird.Write("0", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
+
                 ConsoleKeyInfo input = Console.ReadKey(true);
                 switch(input.Key) {
+
+                    case ConsoleKey.D0:
+                        isWallet = false;
+                        Snowbird.Exit();
+                        break;
+                    case ConsoleKey.Escape:
+                        isWallet = false;
+                        break;
+
                     case ConsoleKey.UpArrow:
                         now = ChangeMonth(now, false);
                         break;
@@ -141,12 +165,15 @@ namespace Final_Test.Menus {
                     case ConsoleKey.RightArrow:
                         now = ChangeMonth(now, false);
                         break;
+                    case ConsoleKey.T:
+                        addWallets.AddTransaction();
+                        break;
                     default:
                         break;
                 }
-                
+
             }
-            
+
         }
 
         public static void Transactions() {

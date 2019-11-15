@@ -9,7 +9,7 @@ namespace Final_Test {
     public class Snowbird {     // by Ábel
 
         public static Database db;
-        private static bool running;
+        private static bool running, login;
         public static User user;
         
         /// <summary>
@@ -21,11 +21,16 @@ namespace Final_Test {
             Console.Title = "Snowbird Wallet Application";
 
             running = true;
+            login = true;
             db = new Database("127.0.0.1", "snowbird", "root", "");
 
-            Welcome.Run();
             while (running) {
+
+                if(login)
+                    Welcome.Run();
+                
                 MainMenu.Run();
+
             }
         }
 
@@ -72,7 +77,6 @@ namespace Final_Test {
                 return builder.ToString();
             }
         }
-
         /// <summary>
         /// Single key pressed in string format
         /// </summary>
@@ -139,7 +143,15 @@ namespace Final_Test {
         public static void Exit() {
             while (true) {
                 Console.Clear();
-                Console.Write("Are you sure you want to ");
+                Console.Clear();
+                Console.Write("\n\t\t\t\t\t\tWelcome ");
+
+                if(!login)
+                    Write(user.Username, ConsoleColor.Blue);
+                else
+                    Write("Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White);
+
+                Console.Write("! \n\n\tAre you sure you want to ");
                 Write("QUIT", ConsoleColor.Red);
                 Console.Write("? ("); /**/ Write("y", ConsoleColor.Yellow); /**/ Console.Write("/"); /**/ Write("n", ConsoleColor.Yellow); /**/ Console.WriteLine(")");
 
@@ -147,10 +159,34 @@ namespace Final_Test {
 
                 if (input == "y") {
                     running = false;
-                    WriteLine("Quitting...", ConsoleColor.Red);
+                    WriteLine("\n\tQuitting...", ConsoleColor.Red);
                     System.Threading.Thread.Sleep(1000);
-                    System.Environment.Exit(1);
+                    Environment.Exit(1);
                 } else if(input == "n") {
+                    break;
+                }
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void Logout() {
+            while (true) {
+                Console.Clear();
+                Console.Clear();
+                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Write(user.Username, ConsoleColor.Blue);
+                Console.Write("! \n\n\tAre you sure you want to ");
+                Write("LOG OUT", ConsoleColor.Red);
+                Console.Write("? ("); /**/ Write("y", ConsoleColor.Yellow); /**/ Console.Write("/"); /**/ Write("n", ConsoleColor.Yellow); /**/ Console.WriteLine(")");
+
+                string input = KeyPressed().ToLower();
+
+                if (input == "y") {
+                    WriteLine("\n\tLogging out...", ConsoleColor.Red);
+                    login = true;
+                    System.Threading.Thread.Sleep(1000);
+                    break;
+                } else if (input == "n") {
                     break;
                 }
             }
@@ -160,6 +196,10 @@ namespace Final_Test {
         public static bool Running {
             get { return running; }
             set { running = value; }
+        }
+        public static bool Login {
+            get { return login; }
+            set { login = value; }
         }
     }
 }
