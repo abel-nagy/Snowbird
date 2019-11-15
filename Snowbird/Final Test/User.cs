@@ -1,53 +1,51 @@
 ﻿using System.Collections.Generic;
 
 namespace Final_Test {
+
+    /// <summary>
+    /// Logged in user
+    /// </summary>
     public class User {
 
-        private int walletCount, transactionCount;
-        private List<string>[] wallets, transactions;
-
-        public User(string username, string userId) {
-            Username = username;
+        /// <summary>
+        /// Creates a new object of a logged in user
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="userId">UserID in database</param>
+        public User(string userId) {
             UserId = userId;
+
+            Username = Snowbird.db.Select( "SELECT username FROM users WHERE id='" + UserId + "';",
+                                           1, 
+                                           new string[1] { "username" } )[0][0];
+
+            Update();
         }
 
-        // Properties
         /// <summary>
-        /// Logged-in user's username
+        /// Updates all user related info in program
         /// </summary>
+        public void Update() {
+            Wallets      = Snowbird.db.Select( "SELECT * FROM wallets WHERE user_id='" + UserId + "' ORDER BY type;",
+                                               9,
+                                               new string[9] { "id", "user_id", "type", "amount", "currency", "account_name", "account_number", "description", "created_at" } );
+            Transactions = Snowbird.db.Select( "SELECT * FROM transactions t RIGHT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + UserId + "' ORDER BY t.id;",
+                                               8,
+                                               new string[8] { "id", "wallet_id", "type", "amount", "fromWalletId", "toWalletId", "description", "created_at" } );
+
+            WalletCount      = Snowbird.db.Count( "SELECT COUNT(*) FROM wallets WHERE user_id='" + UserId + "';");
+            TransactionCount = Snowbird.db.Count( "SELECT COUNT(*) FROM transactions t RIGHT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + UserId + "';" );
+        }
+
+
         public string Username { get; }
-        /// <summary>
-        /// Logged-in user's user id
-        /// </summary>
         public string UserId { get; }
-        /// <summary>
-        /// How many wallets the logged-in user have
-        /// </summary>
-        public int WalletCount {
-            get { return walletCount; }
-            set { walletCount = value; }
-        }
-        /// <summary>
-        /// All data for the logged-in user's every wallet
-        /// </summary>
-        public List<string>[] Wallets {
-            get { return wallets; }
-            set { wallets = value; }
-        }
-        /// <summary>
-        /// How many transactions the logged-in user have
-        /// </summary>
-        public int TransactionCount {
-            get { return transactionCount; }
-            set { transactionCount = value; }
-        }
-        /// <summary>
-        /// All data for the logged-in user's every transactions
-        /// </summary>
-        public List<string>[] Transactions {
-            get { return transactions; }
-            set { transactions = value; }
-        }
+
+        public int WalletCount { get; set; }
+        public int TransactionCount { get; set; }
+
+        public List<string>[] Wallets { get; set; }
+        public List<string>[] Transactions { get; set; }
 
     }
 }
