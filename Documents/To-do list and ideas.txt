@@ -9,6 +9,7 @@ To-do:
   - add currency conversion
   - improve add wallet method
   - add help interface
+  - fix bug on create first wallet escape
 
 ideas:
   - beautify code

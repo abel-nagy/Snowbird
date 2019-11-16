@@ -8,6 +8,8 @@ namespace Final_Test.Menus
 
         public static double AddWallet() {
 
+            double amount = -1.0;
+
             bool runThis = true;
             while(runThis) {
 
@@ -68,7 +70,6 @@ namespace Final_Test.Menus
                         // Amount
                     Console.Write( "\n\tType in the desired Initial amount: " );
                     string input = Snowbird.GetNumbers();
-                    double amount = -1.0;
 
                     if(input == "!Q!") {
                         runThis = false;
@@ -143,7 +144,7 @@ namespace Final_Test.Menus
                 }
             }
 
-            return 0.0;
+            return amount;
         }
         
 
