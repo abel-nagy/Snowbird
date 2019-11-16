@@ -7,9 +7,7 @@ namespace Final_Test.Menus {
         
         public static bool Run() {
 
-            Console.Clear();
-            Console.Write("\n\t\t\t\t\t\tWelcome to "); /**/ Snowbird.Write("Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White); /**/ Console.WriteLine("! \n\n");
-            Console.Write("\t\t\t\t\t\t\t"); Snowbird.Write("Regisration\n\n", ConsoleColor.Black, ConsoleColor.Blue); 
+            
 
             bool registered = false;
 
@@ -17,7 +15,9 @@ namespace Final_Test.Menus {
 
             while (true) {
                 email = ""; username = ""; password = "";
-
+                Console.Clear();
+                Console.Write("\n\t\t\t\t\t\tWelcome to "); /**/ Snowbird.Write("Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White); /**/ Console.WriteLine("! \n\n");
+                Console.Write("\t\t\t\t\t\t\t"); Snowbird.Write("Registration\n\n", ConsoleColor.Black, ConsoleColor.Green); 
                 // E-mail
                 bool emailOk;
                 //Console.Clear();
@@ -84,16 +84,28 @@ namespace Final_Test.Menus {
 
                     //Console.Clear();
                     Console.WriteLine("\tPassword can be any length and character.");
-                    Snowbird.Write("\t\tPassword: ", ConsoleColor.Red);
+                    Snowbird.Write("\t\tPassword: ", ConsoleColor.DarkRed);
                     password = Snowbird.GetHashedPass();
 
-                    Snowbird.Write("\t\tPassword again: ", ConsoleColor.Red);
-                    if (Snowbird.GetHashedPass() == password && password != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") break;
+                    if(password != "!Q!")
+                    {
+                        Snowbird.Write("\t\tPassword again: ", ConsoleColor.DarkRed);
+                        if (Snowbird.GetHashedPass() == password && password != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") break;
+                    }
+
+
+                    
 
                 }
 
                 Console.Clear();
-                Console.Write("\t\tYour data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
+                //Console.Write("\t\tYour data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
+
+                Snowbird.Write("\n\n\tYour data:\n", ConsoleColor.Yellow);
+                Snowbird.Write("\t\tE-mail: ", ConsoleColor.Green); Console.WriteLine(email);
+                Snowbird.Write("\t\tUsername: ", ConsoleColor.Blue); Console.WriteLine(username);
+                Snowbird.Write("\n\n\tIs this correct? (y/n): ", ConsoleColor.Magenta);
+
                 if (Console.ReadLine() == "y") break;
 
             }
