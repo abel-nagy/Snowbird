@@ -7,6 +7,10 @@ namespace Final_Test.Menus {
         
         public static bool Run() {
 
+            Console.Clear();
+            Console.Write("\n\t\t\t\t\t\tWelcome to "); /**/ Snowbird.Write("Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White); /**/ Console.WriteLine("! \n\n");
+            Console.Write("\t\t\t\t\t\t\t"); Snowbird.Write("Regisration\n\n", ConsoleColor.Black, ConsoleColor.Blue); 
+
             bool registered = false;
 
             string email, username, password;
@@ -16,12 +20,12 @@ namespace Final_Test.Menus {
 
                 // E-mail
                 bool emailOk;
-                Console.Clear();
+                //Console.Clear();
                 do {
 
                     emailOk = true;
-
-                    Console.Write("E-mail (used for password reset. Not required but advised): ");
+                    Snowbird.Write("\t\tE - mail", ConsoleColor.Green);
+                    Console.Write("(used for password reset. Not required but advised): ");
                     email = Console.ReadLine();
 
                     if (email != "") {
@@ -32,7 +36,7 @@ namespace Final_Test.Menus {
                             emailOk = false;
 
                             Console.Clear();
-                            Console.WriteLine("Not a valid e-mail address!");
+                            Snowbird.Write("\t\tNot a valid e-mail address!\n", ConsoleColor.Red);
 
                         } else {
                             if (Snowbird.db.Count("SELECT count(*) FROM users WHERE email='" + email + "';") > 0) {
@@ -40,7 +44,7 @@ namespace Final_Test.Menus {
                                 emailOk = false;
 
                                 Console.Clear();
-                                Console.WriteLine("Email is already in use. Try another one!");
+                                Snowbird.Write("\t\tEmail is already in use. Try another one!\n", ConsoleColor.Red);
 
                             }
                         }
@@ -49,13 +53,13 @@ namespace Final_Test.Menus {
 
                 // Usename
                 bool usernameOk;
-                Console.Clear();
+                //Console.Clear();
                 do {
 
                     usernameOk = true;
 
-                    Console.WriteLine("Username must contain numbers and english letters only and must be at least 6 characters long!");
-                    Console.Write("Username: ");
+                    Console.WriteLine("\tUsername must contain numbers and english letters only and must be at least 6 characters long!");
+                    Snowbird.Write("\t\tUsername: ", ConsoleColor.Blue);
                     username = Console.ReadLine();
 
                     if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) {
@@ -64,7 +68,7 @@ namespace Final_Test.Menus {
                             usernameOk = false;
 
                             Console.Clear();
-                            Console.WriteLine("Already in use. Try another one!");
+                            Snowbird.Write("\t\tAlready in use. Try another one!", ConsoleColor.Red);
 
                         }
                     } else {
@@ -78,17 +82,18 @@ namespace Final_Test.Menus {
                 // Password
                 while (true) {
 
-                    Console.Clear();
-                    Console.WriteLine("Password can be any length and character.");
-                    Console.Write("Password: ");
+                    //Console.Clear();
+                    Console.WriteLine("\tPassword can be any length and character.");
+                    Snowbird.Write("\t\tPassword: ", ConsoleColor.Red);
                     password = Snowbird.GetHashedPass();
 
-                    Console.Write("Password again: ");
+                    Snowbird.Write("\t\tPassword again: ", ConsoleColor.Red);
                     if (Snowbird.GetHashedPass() == password && password != "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") break;
 
                 }
 
-                Console.Write("Your data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
+                Console.Clear();
+                Console.Write("\t\tYour data:\n  E-mail: {0}\n  Username: {1}\n\nIs this correct? (y/n): ", email, username);
                 if (Console.ReadLine() == "y") break;
 
             }
