@@ -11,6 +11,7 @@ namespace Final_Test.Menus
             int type = 0;
             string currency = "huf", account_name = "", account_number = "", description = "";
             bool runThis = true, runThis2 = true, good = false;
+            double amount = 0.0;
             Random rand = new Random((int)DateTime.Now.Ticks);
             
             while(runThis) {
@@ -289,14 +290,11 @@ namespace Final_Test.Menus
 
                                 // Date
                             DateTime myDateTime = DateTime.Now;
-                            string dateTime = myDateTime.ToString( "yyyy-MM-dd HH:mm:ss" );
-                            
-                            Snowbird.db.NonQuery( "INSERT INTO wallets (id,   user_id,                        type,           amount,           currency,           account_name,           account_number,           description,      created_at) " +
-                                                  "VALUES (             NULL, '" + Snowbird.user.UserId + "', '" + type + "', '" + amount + "', '" + currency + "', '" + account_name + "', '" + account_number + "', '" + description + "', '" + dateTime + "');" );
+
+                            InsertWallet(type, amount, currency, account_name, account_number, description, myDateTime);
                             Snowbird.user.Update();
-                            
-                            Snowbird.db.NonQuery( "INSERT INTO transactions (id,   wallet_id,          type,  amount,          fromWalletId, toWalletId, description,    created_at) " +
-                                                  "VALUES                   (NULL, '" + Snowbird.user.Wallets[0][Snowbird.user.WalletCount - 1] + "', 1,     " + amount + ", NULL,         NULL,       'Initial amount', '" + dateTime + "');" );
+
+                            InsertTransaction(Snowbird.user.Wallets[0][Snowbird.user.WalletCount - 1], 1, amount, account_name, account_number, description, myDateTime);
                             Snowbird.user.Update();
 
                             runThis = false;
@@ -412,5 +410,38 @@ namespace Final_Test.Menus
             }
             
         }
+
+        /// <summary>
+        /// Insert Wallet to database
+        /// </summary>
+        /// <param name="type">Wallet type (0/1)</param>
+        /// <param name="a">Amount</param>
+        /// <param name="currency">Currency</param>
+        /// <param name="account_name">Account name</param>
+        /// <param name="account_number">Account number</param>
+        /// <param name="description">Description</param>
+        /// <param name="dT">Date created at</param>
+        public static void InsertWallet(int type, double a, string currency, string account_name, string account_number, string description, DateTime dT) {
+            string dateTime = dT.ToString( "yyyy-MM-dd HH:mm:ss" );
+            Snowbird.db.NonQuery( "INSERT INTO wallets (id,   user_id,                        type,           amount,           currency,           account_name,           account_number,           description,      created_at) " +
+                                  "VALUES (             NULL, '" + Snowbird.user.UserId + "', '" + type + "', '" + a + "', '" + currency + "', '" + account_name + "', '" + account_number + "', '" + description + "', '" + dateTime + "');" );
+        }
+
+        /// <summary>
+        /// Insert Transaction to database
+        /// </summary>
+        /// <param name="walletId">Wallet ID</param>
+        /// <param name="type">Transaction type (1/-1)</param>
+        /// <param name="a">Amount</param>
+        /// <param name="fromWid">Transfer initiating Wallet ID</param>
+        /// <param name="toWid">Transfer reciever Wallet ID</param>
+        /// <param name="description">Description</param>
+        /// <param name="dT">Date created at</param>
+        public static void InsertTransaction(string walletId, int type, double a, string fromWid, string toWid, string description, DateTime dT) {
+            string dateTime = dT.ToString( "yyyy-MM-dd HH:mm:ss" );
+            Snowbird.db.NonQuery( "INSERT INTO transactions (id,   wallet_id,          type,         amount,    fromWalletId,      toWalletId,      description,           created_at) " +
+                                  "VALUES                   (NULL, '" + walletId + "', " + type + ", " + a + ", '" + fromWid + "', '" + toWid + "', '" + description + "', '" + dateTime + "');" );
+        }
+
     }
 }
