@@ -70,9 +70,6 @@ namespace Final_Test.Menus {
             /**/                        /**/    if(Snowbird.user.WalletCount == 0) {
             /**/                        /**/        double initialAmount = Wallet.AddWallet();
             /**/                        /**/        if(initialAmount != -1.0) {
-            /**/                        /**/            Snowbird.db.NonQuery("INSERT INTO transactions (id,   wallet_id,                             type, amount,                  fromWalletId, toWalletId, description,      created_at) " +
-            /**/                        /**/                                 "VALUES                   (NULL, '" + Snowbird.user.Wallets[0][0] + "', 1,    '" + initialAmount + "', NULL,         NULL,       'Initial amount', '" + DateTime.Now.ToString( "yyyy-MM-dd HH:mm:ss" ) + "');");
-            /**/                        /**/            Snowbird.user.Update();
             /**/                        /**/            Snowbird.Login = false;
             /**/                        /**/            runThis = false;
             /**/                        /**/        } else

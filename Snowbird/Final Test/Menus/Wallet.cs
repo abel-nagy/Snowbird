@@ -6,9 +6,8 @@ namespace Final_Test.Menus
 {
     public static class Wallet {        // by Patrik and Ábel
 
-        public static double AddWallet() {
-
-            double amount = -1.0;
+        public static void AddWallet() {
+            
             int type = 0;
             string currency = "huf", account_name = "", account_number = "", description = "";
             bool runThis = true, runThis2 = true, good = false;
@@ -314,8 +313,7 @@ namespace Final_Test.Menus
                 }
                 
             }
-
-            return amount;
+            
         }
         
 
