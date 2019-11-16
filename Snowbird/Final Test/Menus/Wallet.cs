@@ -6,7 +6,7 @@ namespace Final_Test.Menus
 {
     public static class Wallet {        // by Patrik and Ábel
 
-        public static void AddWallet() {
+        public static double AddWallet() {
 
             bool runThis = true;
             while(runThis) {
@@ -98,14 +98,18 @@ namespace Final_Test.Menus
                         Snowbird.db.NonQuery( "INSERT INTO wallets (id,   user_id,                        type,           amount,           currency,           account_name,           account_number,           description, created_at) " +
                                               "VALUES (             NULL, '" + Snowbird.user.UserId + "', '" + type + "', '" + amount + "', '" + currency + "', '" + account_name + "', '" + account_number + "', NULL,        '" + dateTime + "');" );
 
+                    } else {
+                        
+                        Snowbird.db.NonQuery( "INSERT INTO wallets (id,   user_id,                        type, amount,           currency,           account_name, account_number, description, created_at) " +
+                                              "VALUES              (NULL, '" + Snowbird.user.UserId + "', 0,    '" + amount + "', '" + currency + "', NULL,         NULL,           NULL,        '" + dateTime + "');");
                     }
-                    /*
-                    query = "INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) " +
-                            "VALUES (NULL, '" + Snowbird.user.UserId + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
-                    Snowbird.db.NonQuery( query );*/
+
+                    Snowbird.user.Update();
 
                 }
             }
+
+            return 0.0;
         }
         
 

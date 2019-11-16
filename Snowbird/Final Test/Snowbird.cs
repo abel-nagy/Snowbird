@@ -178,8 +178,10 @@ namespace Final_Test {
 
                 if(!login)
                     Write( user.Username, ConsoleColor.Blue );
-                else
+                else {
+                    Console.Write("to ");
                     Write( "Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White );
+                }
 
                 Console.Write( "! \n\n\tAre you sure you want to " );
                 Write( "QUIT", ConsoleColor.Red );

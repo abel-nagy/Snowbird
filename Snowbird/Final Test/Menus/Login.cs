@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
-using System.Security;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace Final_Test.Menus {
     public static class Login {
@@ -70,11 +66,9 @@ namespace Final_Test.Menus {
             /**/                        // ==== Add first wallet for freshly created user =====================================================================================================================
             /**/                        /**/
             /**/                        /**/    if(Snowbird.user.WalletCount == 0) {
-            /**/                        /**/        double initialAmount = AddWallet( Snowbird.user.UserId, 0 );
-            /**/                        /**/        Snowbird.user.Update();
-            /**/                        /**/        string query = "INSERT INTO transactions (id,   wallet_id,                             type, amount,                  fromWalletId, toWalletId, description,      created_at) " +
-            /**/                        /**/                       "VALUES                   (NULL, '" + Snowbird.user.Wallets[0][0] + "', 1,    '" + initialAmount + "', NULL,         NULL,       'Initial amount', '" + DateTime.Now.ToString( "yyyy-MM-dd HH:mm:ss" ) + "');";
-            /**/                        /**/        Snowbird.db.NonQuery( query );
+            /**/                        /**/        double initialAmount = Wallet.AddWallet();
+            /**/                        /**/        Snowbird.db.NonQuery("INSERT INTO transactions (id,   wallet_id,                             type, amount,                  fromWalletId, toWalletId, description,      created_at) " +
+            /**/                        /**/                             "VALUES                   (NULL, '" + Snowbird.user.Wallets[0][0] + "', 1,    '" + initialAmount + "', NULL,         NULL,       'Initial amount', '" + DateTime.Now.ToString( "yyyy-MM-dd HH:mm:ss" ) + "');");
             /**/                        /**/        Snowbird.user.Update();
             /**/                        /**/    }
             /**/                        /**/
@@ -85,7 +79,7 @@ namespace Final_Test.Menus {
             /**/                        /**/    Snowbird.Login = false;
             /**/                        /**/    islogin = false;
             /**/                        /**/
-            /**/                        // =============================================
+            /**/                        // ==============================================
             /**/                        
             /**/                    }
             /**/                }
@@ -105,6 +99,7 @@ namespace Final_Test.Menus {
         /// <param name="password">User password</param>
         /// <returns>UserID</returns>
         public static string ValidateLogin(string username, string password) {
+
             int mathcing = Snowbird.db.Count( "SELECT COUNT(*) FROM users WHERE username='" + username + "' AND password='" + password + "';" );
             if(mathcing == 1)
                 return Snowbird.db.Select( "SELECT id FROM users WHERE username='" + username + "' AND password='" + password + "';", 1, new string[1] { "id" } )[0][0];
@@ -114,58 +109,9 @@ namespace Final_Test.Menus {
             }
 
             return "!E!";
-        }
-
-
-        /// <summary>
-        /// Creates a Wallet for the user
-        /// </summary>
-        /// <param name="userId">User ID</param>
-        /// <param name="type">Wallet type</param>
-        public static double AddWallet(string userId, int type) {
-
-            double amount = -1.0;
-
-            if(type == 0) {
-                Console.Clear();
-                Console.WriteLine( "Create your first wallet\n" );
-                string currency = "huf";
-
-                // Amount
-                Console.Write( "Amount: " );
-                amount = double.Parse( Snowbird.GetNumbers(), CultureInfo.InvariantCulture.NumberFormat );
-                Snowbird.WriteLine( amount + "", ConsoleColor.Blue );
-
-                //Console.WriteLine( "Currency:" );
-                //Console.Write( "  (" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "HUF", ConsoleColor.Green, ConsoleColor.Gray );
-                //Console.Write( "  (" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "EUR", ConsoleColor.Green, ConsoleColor.Gray );
-                //Console.Write( "  (" ); /**/ Snowbird.Write( "3", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "USD", ConsoleColor.Green, ConsoleColor.Gray );
-                /*
-                switch(Snowbird.KeyPressed()) {
-                    case "1":
-                        currency = "huf";
-                        break;
-                    case "2":
-                        currency = "eur";
-                        break;
-                    case "3":
-                        currency = "usd";
-                        break;
-                    default:
-                        break;
-                }*/
-
-                DateTime myDateTime = DateTime.Now;
-                string dateTime = myDateTime.ToString( "yyyy-MM-dd HH:mm:ss" );
-
-                string query = "INSERT INTO wallets (id, user_id, type, amount, currency, account_name, account_number, description, created_at) " +
-                               "VALUES (NULL, '" + userId + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
-                Snowbird.db.NonQuery( query );
-            }
-
-            return amount;
 
         }
+        
 
     }
 }
