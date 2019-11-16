@@ -68,8 +68,8 @@ namespace Final_Test.Menus {
             /**/                        // ==== Add first wallet for freshly created user =====================================================================================================================
             /**/                        /**/
             /**/                        /**/    if(Snowbird.user.WalletCount == 0) {
-            /**/                        /**/        double initialAmount = Wallet.AddWallet();
-            /**/                        /**/        if(initialAmount != -1.0) {
+            /**/                        /**/        Wallet.AddWallet();
+            /**/                        /**/        if(Snowbird.user.WalletCount >= 1) {
             /**/                        /**/            Snowbird.Login = false;
             /**/                        /**/            runThis = false;
             /**/                        /**/        } else
