@@ -29,12 +29,12 @@ namespace Final_Test {
             Wallets      = Snowbird.db.Select( "SELECT * FROM wallets WHERE user_id='" + UserId + "' ORDER BY type;",
                                                9,
                                                new string[9] { "id", "user_id", "type", "amount", "currency", "account_name", "account_number", "description", "created_at" } );
-            Transactions = Snowbird.db.Select( "SELECT * FROM transactions t RIGHT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + UserId + "' ORDER BY t.id;",
+            Transactions = Snowbird.db.Select( "SELECT * FROM transactions t LEFT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + UserId + "' ORDER BY t.id;",
                                                8,
                                                new string[8] { "id", "wallet_id", "type", "amount", "fromWalletId", "toWalletId", "description", "created_at" } );
 
             WalletCount      = Snowbird.db.Count( "SELECT COUNT(*) FROM wallets WHERE user_id='" + UserId + "';");
-            TransactionCount = Snowbird.db.Count( "SELECT COUNT(*) FROM transactions t RIGHT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + UserId + "';" );
+            TransactionCount = Snowbird.db.Count( "SELECT COUNT(*) FROM transactions t LEFT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + UserId + "';" );
         }
 
 

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Final_Test.Menus {
-    /// <summary>
-    /// 
-    /// </summary>
+    
     public static class MainMenu {      // by Ábel
         
         public static void Run() {
