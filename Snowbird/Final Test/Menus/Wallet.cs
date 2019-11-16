@@ -24,7 +24,7 @@ namespace Final_Test.Menus
                     Console.Write( "!\n\n\t\t\t\t\t\t " ); /**/ Snowbird.Write("New wallet", ConsoleColor.Black, ConsoleColor.DarkCyan); /**/ Snowbird.WriteLine(" 1/3\n", ConsoleColor.DarkYellow);
 
                         // Type
-                    Console.WriteLine( "\t- Choose what type of wallet do you wnat to add:\n" );
+                    Console.WriteLine( "\t- Choose what type of wallet do you want to add:\n" );
 
                     Console.Write( "\t\t(" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.Write( "Wallet", ConsoleColor.Cyan); /**/ Console.WriteLine("  (Like a physical wallet)");
                     Console.Write( "\t\t(" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.Write( "Account", ConsoleColor.Magenta); /**/ Console.WriteLine(" (Bank account, Savings Deposit)");
@@ -78,6 +78,8 @@ namespace Final_Test.Menus
                     if(input == "!Q!") {
                         runThis = false;
                         runThis2 = false;
+                    } else if(input == "!R!") {
+                        runThis2 = true;
                     } else {
 
                         amount = double.Parse( input, CultureInfo.InvariantCulture.NumberFormat );
