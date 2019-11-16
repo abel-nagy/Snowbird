@@ -173,7 +173,6 @@ namespace Final_Test {
         public static void Exit() {
             while(true) {
                 Console.Clear();
-                Console.Clear();
                 Console.Write( "\n\t\t\t\t\t\tWelcome " );
 
                 if(!login)
@@ -183,7 +182,9 @@ namespace Final_Test {
                     Write( "Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White );
                 }
 
-                Console.Write( "! \n\n\tAre you sure you want to " );
+                Console.Write( "!\n\n\t\t\t\t\t\t\t   " ); /**/ WriteLine("Quit", ConsoleColor.Black, ConsoleColor.Red);
+
+                Console.Write( "\n\n\tAre you sure you want to " );
                 Write( "QUIT", ConsoleColor.Red );
                 Console.Write( "? (" ); /**/
                 Write( "Y", ConsoleColor.Yellow ); /**/

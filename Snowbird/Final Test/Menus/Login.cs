@@ -16,6 +16,8 @@ namespace Final_Test.Menus {
             /**/        /**/
             /**/        /**/    Console.Clear();
             /**/        /**/    Console.Write( "\n\t\t\t\t\t\tWelcome to " ); /**/ Snowbird.Write( "Snowbird Wallet", ConsoleColor.Black, ConsoleColor.White ); /**/ Console.WriteLine( "! \n\n" );
+            /**/        /**/
+            /**/        /**/    Console.Write("\t\t\t\t\t\t\t"); Snowbird.Write("Login\n\n", ConsoleColor.Black, ConsoleColor.Blue); 
             /**/        /**/    
             /**/        /**/    if(failed) {
             /**/        /**/        Snowbird.WriteLine( "\tWrong login credidentials! Let's try again!", ConsoleColor.Red );
