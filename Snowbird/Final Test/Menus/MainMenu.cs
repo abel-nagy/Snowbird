@@ -57,7 +57,7 @@ namespace Final_Test.Menus {
                         Snowbird.Logout();
                         break;
                     case ConsoleKey.N:
-                        Wallet.Run();
+                        Wallet.AddWallet();
                         break;
                     default:
                         string inputString = "";
@@ -66,7 +66,7 @@ namespace Final_Test.Menus {
                         if (Regex.Match(inputString, "^[1-9]*$").Success) {
                             int choosenWallet = int.Parse( inputString );
                             if(choosenWallet <= Snowbird.user.WalletCount) {
-                                ShowWallet( int.Parse( wallets[0][choosenWallet - 1] ), choosenWallet - 1 );
+                                ShowWallet( ( wallets[0][choosenWallet - 1] ), choosenWallet - 1 );
                             }
                         }
                         break;
@@ -76,7 +76,7 @@ namespace Final_Test.Menus {
             
         }
 
-        public static void ShowWallet(int walletId, int wallet) {
+        public static void ShowWallet(string walletId, int wallet) {
 
             bool runThis = true;
             DateTime now = DateTime.Now;
@@ -108,7 +108,7 @@ namespace Final_Test.Menus {
 
                 for (int i = 0; i < Snowbird.user.TransactionCount; i++) {
 
-                    if (Convert.ToInt32(trans[1][i]) == walletId) {
+                    if (trans[1][i] == walletId) {
                         DateTime transDate = Convert.ToDateTime(trans[7][i]);
 
                         if (now.Month == transDate.Month && now.Year == transDate.Year) {
