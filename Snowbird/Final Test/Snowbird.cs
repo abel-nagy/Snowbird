@@ -1,6 +1,7 @@
 ﻿using Final_Test.Menus;
 
 using System;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -38,6 +39,9 @@ namespace Final_Test {
         public static string GetNumbers() {
             string number = "";
             ConsoleKeyInfo key;
+            
+            NumberStyles style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
+            CultureInfo culture = CultureInfo.CreateSpecificCulture( "en-GB" );
 
             do {
                 key = Console.ReadKey( true );
@@ -52,10 +56,15 @@ namespace Final_Test {
             } while(key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Escape);
             Console.WriteLine();
 
-            if(key.Key == ConsoleKey.Escape)
-                return "!Q!";
-            else
+            double value;
+            if(double.TryParse(number, style, culture, out value)) {
                 return number;
+            } else {
+                if(key.Key == ConsoleKey.Escape)
+                    return "!Q!";
+                return "!R!";
+            }
+                
         }
         /// <summary>
         /// Making it possible to quit from input field
