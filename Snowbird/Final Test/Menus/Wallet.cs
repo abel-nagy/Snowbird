@@ -3,16 +3,18 @@ using System.Text.RegularExpressions;
 
 namespace Final_Test.Menus
 {
-    public static class Wallet {        // by Patrik
+    public static class Wallet {        // by Patrik and Ábel
 
-        public static void Run()
+        public static void addWallet(int GetUserId)
         {
             Console.Clear();
             Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue);
-            Console.WriteLine("Create new wallet\n");
+            Console.WriteLine("\n\t\t\t\t\t\tCreate new wallet\n");
             string query;
+
             // Type
             int type = 0;
+            Console.WriteLine("Choose type: ");
             Console.Write("  ("); /**/ Snowbird.Write("1", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Wallet", ConsoleColor.Red, ConsoleColor.Black);
             Console.Write("  ("); /**/ Snowbird.Write("2", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Account", ConsoleColor.Red, ConsoleColor.Black);
             switch (Snowbird.KeyPressed())
@@ -28,13 +30,14 @@ namespace Final_Test.Menus
             }
 
             float amount = 0;
-            string currency = "huf";
+            
 
             // Amount
             Console.Write("Amount: ");
             amount = Convert.ToSingle(Snowbird.GetNumbers());
 
             // Currency
+            string currency = "huf";
             Console.WriteLine("Currency:");
             Console.Write("  ("); /**/ Snowbird.Write("1", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("HUF", ConsoleColor.Green, ConsoleColor.Gray);
             Console.Write("  ("); /**/ Snowbird.Write("2", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("EUR", ConsoleColor.Green, ConsoleColor.Gray);
@@ -56,26 +59,26 @@ namespace Final_Test.Menus
             // Date
             DateTime myDateTime = DateTime.Now;
             string dateTime = myDateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            /*
+
             Random r = new Random();
             if(type == 1)
             {
-                string account_name;
-                int account_number;
+                string account_name, account_number;
+                int account_number_1, account_number_2;
                 Console.Write("Account Name: ");
                 account_name = Console.ReadLine();
 
                 // ezt nemtudom hogy kellene, megirom így egyenlőre
-                account_number= r.Next(1, 1000);
-
-                query = "INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) VALUES (NULL, '" + Login.GetUserId(Snowbird.user.Username) + "', '" + type + "', '" + amount + "', '" + currency + "', '" + account_name + "', '" + account_number + "', NULL, '" + dateTime + "');";
+                account_number_1 = r.Next(0, 99999999);
+                account_number_2 = r.Next(0, 99999999);
+                account_number = "00000000" + account_number_1 + account_number_2;
+                query = "INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) VALUES (NULL, '" + GetUserId + "', '" + type + "', '" + amount + "', '" + currency + "', '" + account_name + "', '" + account_number + "', NULL, '" + dateTime + "');";
                 Snowbird.db.NonQuery(query);
             }
 
-            query = "INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) VALUES (NULL, '" + Login.GetUserId(Snowbird.user.Username) + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
+            query = "INSERT INTO `wallets` (`id`, `user_id`, `type`, `amount`, `currency`, `account_name`, `account_number`, `description`, `created_at`) VALUES (NULL, '" + GetUserId + "', '0', '" + amount + "', '" + currency + "', NULL, NULL, NULL, '" + dateTime + "');";
             Snowbird.db.NonQuery(query);
 
-            */
 
         }
         
