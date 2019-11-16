@@ -5,11 +5,11 @@ namespace Final_Test.Menus {
 
         public static void Run() {
 
-            bool islogin = true, failed = false;
+            bool runThis = true, failed = false;
 
             // ==== Repeat Login screen ===============================================================================================================================================================
             /**/
-            /**/    while(islogin) {
+            /**/    while(runThis) {
             /**/        string username = "", password = "";
             /**/        
             /**/        // ==== Greeting screen ============================================================================
@@ -36,7 +36,7 @@ namespace Final_Test.Menus {
             /**/        //==============================================================
             /**/        
             /**/        if(input == "!Q!")          // -- Quit from input -----
-            /**/            islogin = false;
+            /**/            runThis = false;
             /**/
             /**/        else {
             /**/            username = input;
@@ -51,7 +51,7 @@ namespace Final_Test.Menus {
             /**/                //==============================================================
             /**/                
             /**/                if(input == "!Q!")          // -- Quit from input -----
-            /**/                    islogin = false;
+            /**/                    runThis = false;
             /**/
             /**/                else {
             /**/                
@@ -69,19 +69,18 @@ namespace Final_Test.Menus {
             /**/                        /**/
             /**/                        /**/    if(Snowbird.user.WalletCount == 0) {
             /**/                        /**/        double initialAmount = Wallet.AddWallet();
-            /**/                        /**/        Snowbird.db.NonQuery("INSERT INTO transactions (id,   wallet_id,                             type, amount,                  fromWalletId, toWalletId, description,      created_at) " +
-            /**/                        /**/                             "VALUES                   (NULL, '" + Snowbird.user.Wallets[0][0] + "', 1,    '" + initialAmount + "', NULL,         NULL,       'Initial amount', '" + DateTime.Now.ToString( "yyyy-MM-dd HH:mm:ss" ) + "');");
-            /**/                        /**/        Snowbird.user.Update();
+            /**/                        /**/        if(initialAmount != -1.0) {
+            /**/                        /**/            Snowbird.db.NonQuery("INSERT INTO transactions (id,   wallet_id,                             type, amount,                  fromWalletId, toWalletId, description,      created_at) " +
+            /**/                        /**/                                 "VALUES                   (NULL, '" + Snowbird.user.Wallets[0][0] + "', 1,    '" + initialAmount + "', NULL,         NULL,       'Initial amount', '" + DateTime.Now.ToString( "yyyy-MM-dd HH:mm:ss" ) + "');");
+            /**/                        /**/            Snowbird.user.Update();
+            /**/                        /**/            Snowbird.Login = false;
+            /**/                        /**/            runThis = false;
+            /**/                        /**/        } else
+            /**/                        /**/            runThis = false;
             /**/                        /**/    }
             /**/                        /**/
             /**/                        // ====================================================================================================================================================================
             /**/                        
-            /**/                        // ==== Quit Login screen to log in User ========
-            /**/                        /**/
-            /**/                        /**/    Snowbird.Login = false;
-            /**/                        /**/    islogin = false;
-            /**/                        /**/
-            /**/                        // ==============================================
             /**/                        
             /**/                    }
             /**/                }

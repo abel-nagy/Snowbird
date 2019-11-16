@@ -9,7 +9,7 @@ namespace Final_Test {
     public class Snowbird {     // by Ábel
 
         public static Database db;
-        private static bool running, login;
+        private static bool running, welcome;
         public static User user;
         
         static void Main(string[] args) {
@@ -17,12 +17,12 @@ namespace Final_Test {
             Console.Title = "Snowbird Wallet Application";
 
             running = true;
-            login = true;
+            welcome = true;
             db = new Database( "127.0.0.1", "snowbird", "root", "" );
 
             while(running) {
 
-                if(login)
+                if(welcome)
                     Welcome.Run();
                 else
                     MainMenu.Run();
@@ -175,7 +175,7 @@ namespace Final_Test {
                 Console.Clear();
                 Console.Write( "\n\t\t\t\t\t\tWelcome " );
 
-                if(!login)
+                if(!welcome)
                     Write( user.Username, ConsoleColor.Blue );
                 else {
                     Console.Write("to ");
@@ -225,7 +225,7 @@ namespace Final_Test {
 
                 if(input == "y") {
                     WriteLine( "\n\tLogging out...", ConsoleColor.Red );
-                    login = true;
+                    welcome = true;
                     System.Threading.Thread.Sleep( 1000 );
                     break;
                 } else if(input == "n") {
@@ -240,8 +240,8 @@ namespace Final_Test {
             set { running = value; }
         }
         public static bool Login {
-            get { return login; }
-            set { login = value; }
+            get { return welcome; }
+            set { welcome = value; }
         }
     }
 }

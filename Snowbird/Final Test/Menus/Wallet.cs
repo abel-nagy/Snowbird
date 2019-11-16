@@ -29,6 +29,10 @@ namespace Final_Test.Menus
                     Console.Write( "\t\t(" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.Write( "Wallet", ConsoleColor.Cyan); /**/ Console.WriteLine("  (Like a physical wallet)");
                     Console.Write( "\t\t(" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.Write( "Account", ConsoleColor.Magenta); /**/ Console.WriteLine(" (Bank account, Savings Deposit)");
 
+                    Console.Write( "\n\n\t(" ); /**/ Snowbird.Write("ESC", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "Go Back", ConsoleColor.Cyan);
+                    Console.Write( "\n\t(" ); /**/ Snowbird.Write( "L", ConsoleColor.Yellow ); /**/  Console.Write( ") " ); Snowbird.WriteLine( "  Logout", ConsoleColor.Red );
+                    Console.Write( "\t(" ); /**/ Snowbird.Write( "Q", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "  Quit", ConsoleColor.Red );
+
                     ConsoleKeyInfo input = Console.ReadKey( true );
                     switch(input.Key) {
                         case ConsoleKey.Q:
@@ -68,7 +72,7 @@ namespace Final_Test.Menus
                     Console.Write( "!\n\n\t\t\t\t\t\t" ); /**/ Snowbird.Write(" New wallet ", ConsoleColor.Black, ConsoleColor.DarkCyan); /**/ Snowbird.WriteLine(" 2/3\n", ConsoleColor.DarkYellow);
 
                         // Amount
-                    Console.Write( "\n\tType in the desired Initial amount: " );
+                    Console.Write( "\n\t- Type in the desired Initial amount: " );
                     string input = Snowbird.GetNumbers();
 
                     if(input == "!Q!") {
@@ -82,18 +86,9 @@ namespace Final_Test.Menus
                         string currency = "huf";
 
                         Console.WriteLine( "\n\tCurrency:\n" );
-                        Console.Write( "\t(" ); /**/
-                        Snowbird.Write( "1", ConsoleColor.Yellow ); /**/
-                        Console.Write( ") " );
-                        Snowbird.WriteLine( "HUF", ConsoleColor.Green );
-                        Console.Write( "\t(" ); /**/
-                        Snowbird.Write( "2", ConsoleColor.Yellow ); /**/
-                        Console.Write( ") " );
-                        Snowbird.WriteLine( "EUR", ConsoleColor.Green );
-                        Console.Write( "\t(" ); /**/
-                        Snowbird.Write( "3", ConsoleColor.Yellow ); /**/
-                        Console.Write( ") " );
-                        Snowbird.WriteLine( "USD", ConsoleColor.Green );
+                        Console.Write( "\t\t(" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "HUF", ConsoleColor.Green );
+                        Console.Write( "\t\t(" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "EUR", ConsoleColor.Green );
+                        Console.Write( "\t\t(" ); /**/ Snowbird.Write( "3", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "USD", ConsoleColor.Green );
 
                         switch(Snowbird.KeyPressed()) {
                             case "1":

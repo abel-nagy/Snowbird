@@ -8,8 +8,8 @@ To-do:
     - add bank transfer
   - add currency conversion
   - improve add wallet method
-  - add help interface
-  - fix bug on create first wallet escape
+  - fix bug on create first wallet escape (FIXED by Ábel)
 
 ideas:
   - beautify code
+  - add help interface
