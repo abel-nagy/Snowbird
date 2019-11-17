@@ -209,7 +209,7 @@ namespace Final_Test.Menus
                     
                 }
 
-                    // Amount
+                    // Description
                 runThis2 = true;
                 while(runThis2 && good) {
 
@@ -291,11 +291,9 @@ namespace Final_Test.Menus
                                 // Date
                             DateTime myDateTime = DateTime.Now;
 
-                            InsertWallet(type, amount, currency, account_name, account_number, description, myDateTime);
-                            Snowbird.user.Update();
+                            Snowbird.InsertWallet(type, amount, currency, account_name, account_number, description, myDateTime);
 
-                            InsertTransaction(Snowbird.user.Wallets[0][Snowbird.user.WalletCount - 1], 1, amount, account_name, account_number, description, myDateTime);
-                            Snowbird.user.Update();
+                            Snowbird.InsertTransaction(Snowbird.user.Wallets[0][Snowbird.user.WalletCount - 1], 1, amount, account_name, account_number, description, myDateTime);
 
                             runThis = false;
 
@@ -314,134 +312,5 @@ namespace Final_Test.Menus
             
         }
         
-
-        public static void AddTransaction() {
-
-            bool runThis = true;
-
-            while (runThis) {
-
-                Console.Clear();
-                Console.Write( "\n\t\t\t\t\t\tWelcome " ); /**/
-                Snowbird.Write( Snowbird.user.Username, ConsoleColor.Blue );
-                Console.WriteLine( "! \n\n\t- What type of transaction do you want to add?\n" );
-                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "1", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "Income", ConsoleColor.DarkGreen );
-                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "2", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.WriteLine( "Expense", ConsoleColor.DarkRed );
-                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "3", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.Write( "Transfer", ConsoleColor.DarkGreen ); /**/ Console.WriteLine(" (To your wallets)");
-                Console.Write( "\t\t(" ); /**/ Snowbird.Write( "4", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.Write( "Transfer", ConsoleColor.DarkRed ); /**/ Console.WriteLine(" (To bank account)");
-
-                Console.Write( "\n\n\t(" ); /**/ Snowbird.Write("ESC", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "Go Back", ConsoleColor.Cyan);
-                Console.Write( "\n\t(" ); /**/ Snowbird.Write( "L", ConsoleColor.Yellow ); /**/  Console.Write( ") " ); Snowbird.WriteLine( "  Logout", ConsoleColor.Red );
-                Console.Write( "\t(" ); /**/ Snowbird.Write( "Q", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "  Quit", ConsoleColor.Red );
-                
-                ConsoleKeyInfo input = Console.ReadKey( true );
-
-                switch(input.Key) {
-                    
-                    case ConsoleKey.Escape:
-                        runThis = false;
-                        break;
-                    case ConsoleKey.Q:
-                        Snowbird.Exit();
-                        break;
-                    case ConsoleKey.L:
-                        Snowbird.Logout();
-                        break;
-                    default:
-                        string inputString = "";
-                        inputString += input.KeyChar;
-
-                        if(Regex.Match( inputString, "^[1-4]*$" ).Success) {
-                            int inputNumber = int.Parse( inputString );
-                            switch(inputNumber) {
-                                case 1:
-                                    AddLocalTransaction();
-                                    break;
-                                case 2:
-                                    AddLocalTransaction(false);
-                                    break;
-                                case 3:
-                                    break;
-                                case 4:
-                                    break;
-                                default:
-                                    Console.WriteLine("WAIT!!! WHAT THE FUCK??????");
-                                    Console.ReadKey();
-                                    break;
-                            }
-                        }
-
-                        break;
-                }
-                
-
-            }
-            
-        }
-
-        public static void AddLocalTransaction(bool isIncome = true) {
-
-            bool runThis = true;
-
-            while(runThis) {
-                Console.Clear();
-                Console.Write( "\n\t\t\t\t\t\tWelcome " ); /**/
-                Snowbird.Write( Snowbird.user.Username, ConsoleColor.Blue );
-
-                Console.WriteLine( "! \n\n\t- \n" );
-
-
-                ConsoleKeyInfo input = Console.ReadKey( true );
-
-                switch(input.Key) {
-
-                    case ConsoleKey.Escape:
-                        runThis = false;
-                        break;
-                    case ConsoleKey.Q:
-                        Snowbird.Exit();
-                        break;
-                    case ConsoleKey.L:
-                        Snowbird.Logout();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            
-        }
-
-        /// <summary>
-        /// Insert Wallet to database
-        /// </summary>
-        /// <param name="type">Wallet type (0/1)</param>
-        /// <param name="a">Amount</param>
-        /// <param name="currency">Currency</param>
-        /// <param name="account_name">Account name</param>
-        /// <param name="account_number">Account number</param>
-        /// <param name="description">Description</param>
-        /// <param name="dT">Date created at</param>
-        public static void InsertWallet(int type, double a, string currency, string account_name, string account_number, string description, DateTime dT) {
-            string dateTime = dT.ToString( "yyyy-MM-dd HH:mm:ss" );
-            Snowbird.db.NonQuery( "INSERT INTO wallets (id,   user_id,                        type,           amount,           currency,           account_name,           account_number,           description,      created_at) " +
-                                  "VALUES (             NULL, '" + Snowbird.user.UserId + "', '" + type + "', '" + a + "', '" + currency + "', '" + account_name + "', '" + account_number + "', '" + description + "', '" + dateTime + "');" );
-        }
-
-        /// <summary>
-        /// Insert Transaction to database
-        /// </summary>
-        /// <param name="walletId">Wallet ID</param>
-        /// <param name="type">Transaction type (1/-1)</param>
-        /// <param name="a">Amount</param>
-        /// <param name="fromWid">Transfer initiating Wallet ID</param>
-        /// <param name="toWid">Transfer reciever Wallet ID</param>
-        /// <param name="description">Description</param>
-        /// <param name="dT">Date created at</param>
-        public static void InsertTransaction(string walletId, int type, double a, string fromWid, string toWid, string description, DateTime dT) {
-            string dateTime = dT.ToString( "yyyy-MM-dd HH:mm:ss" );
-            Snowbird.db.NonQuery( "INSERT INTO transactions (id,   wallet_id,          type,         amount,    fromWalletId,      toWalletId,      description,           created_at) " +
-                                  "VALUES                   (NULL, '" + walletId + "', " + type + ", " + a + ", '" + fromWid + "', '" + toWid + "', '" + description + "', '" + dateTime + "');" );
-        }
-
     }
 }
