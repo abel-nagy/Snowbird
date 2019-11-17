@@ -24,9 +24,9 @@ namespace Final_Test.Menus {
                 do {
 
                     emailOk = true;
-                    Snowbird.Write("\t\tE - mail", ConsoleColor.Green);
+                    Snowbird.Write("\t\tE-mail ", ConsoleColor.Green);
                     Console.Write("(used for password reset. Not required but advised): ");
-                    email = Console.ReadLine();
+                    email = Snowbird.GetInput();
 
                     if (email != "") {
                         string pattern = "^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
@@ -60,7 +60,7 @@ namespace Final_Test.Menus {
 
                     Console.WriteLine("\tUsername must contain numbers and english letters only and must be at least 6 characters long!");
                     Snowbird.Write("\t\tUsername: ", ConsoleColor.Blue);
-                    username = Console.ReadLine();
+                    username = Snowbird.GetInput();
 
                     if (Regex.Match(username, "^[a-zA-Z0-9]*$").Success && username.Length >= 6) {
                         if(Snowbird.db.Count("SELECT count(*) FROM users WHERE username='" + username + "';") > 0) {

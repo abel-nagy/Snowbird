@@ -149,7 +149,9 @@ namespace Final_Test.Menus {
 
                 ConsoleKeyInfo input = Console.ReadKey(true);
                 switch(input.Key) {
-
+                    case ConsoleKey.A:
+                        TransactionsClass.addTransactions(walletId);
+                        break;
                     case ConsoleKey.L:
                         Snowbird.Logout();
                         break;
@@ -174,7 +176,8 @@ namespace Final_Test.Menus {
                         break;
 
                     case ConsoleKey.T:
-                        Wallet.AddTransaction();
+                        //Wallet.AddTransaction();
+                        TransactionsClass.addTransactions(walletId);
                         break;
                     default:
                         break;
