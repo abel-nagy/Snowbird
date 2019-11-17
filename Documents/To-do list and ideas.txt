@@ -7,6 +7,7 @@ To-do:
     - add wallet transfer
     - add bank transfer
   - add currency conversion
+  - add detailed view of transactions
   - improve add wallet method     (Done by Ábel)
   - fix bug on create first wallet escape (FIXED by Ábel)
 
