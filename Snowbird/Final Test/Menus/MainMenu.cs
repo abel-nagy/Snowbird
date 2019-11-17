@@ -5,12 +5,11 @@ using System.Text.RegularExpressions;
 namespace Final_Test.Menus {
     
     public static class MainMenu {      // by Ábel
-        
+
+        static bool runMain = true;
         public static void Run() {
-
-            bool runThis = true;
-
-            while(runThis) {
+            
+            while(runMain) {
                 
                 Console.Clear();
                 Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue); /**/ Console.WriteLine("!\n\n");
@@ -48,13 +47,13 @@ namespace Final_Test.Menus {
                         Snowbird.Exit();
                         break;
                     case ConsoleKey.L:
-                        runThis = false;
+                        runMain = false;
                         Snowbird.Logout();
                         break;
                     case ConsoleKey.N:
                         Wallet.AddWallet();
                         if(Snowbird.Login)
-                            runThis = false;
+                            runMain = false;
                         break;
                     default:
                         string inputString = "";
@@ -81,24 +80,23 @@ namespace Final_Test.Menus {
             while (runThis) {
 
                 Console.Clear();
-                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.WriteLine(Snowbird.user.Username, ConsoleColor.Blue); /**/ Console.WriteLine("!");
+                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue); /**/ Console.WriteLine("!");
 
-                Console.Write("\n\t- Summary of your ");
+                Console.Write( "\n\t\t\t\t\t\t" );
 
                 if (Snowbird.user.Wallets[2][wallet] == "0")
-                    Snowbird.Write("Wallet", ConsoleColor.Cyan);
+                    Snowbird.WriteLine("Wallet", ConsoleColor.White, ConsoleColor.Cyan);
                 else {
 
-                    Snowbird.Write("Account", ConsoleColor.Magenta);
-                    Console.Write("-{0}", Snowbird.user.Wallets[5][wallet]);
+                    Snowbird.WriteLine( Snowbird.user.Wallets[5][wallet] + " - Account", ConsoleColor.White, ConsoleColor.Magenta );
 
                 }
 
                 if (!string.IsNullOrEmpty( Snowbird.user.Wallets[7][wallet]))
-                    Console.Write(" ({0})", Snowbird.user.Wallets[7][wallet]);
-                
+                    Console.WriteLine( "\t\t\t\t\t\t({0})", Snowbird.user.Wallets[7][wallet]);
 
-                Console.Write(" in "); /**/ Snowbird.WriteLine(now.Year + "-" + now.Month, ConsoleColor.Black, ConsoleColor.White);
+
+                Console.Write( "\t\t\t\t\t\t     " ); /**/ Snowbird.WriteLine( now.Year + "-" + now.Month, ConsoleColor.Black, ConsoleColor.White);
 
                 float incomeMonth = 0, expenseMonth = 0, amountMonthBegin = 0, amountMonthEnd = 0;
                 List<string>[] trans = Snowbird.user.Transactions;
@@ -149,9 +147,6 @@ namespace Final_Test.Menus {
 
                 ConsoleKeyInfo input = Console.ReadKey(true);
                 switch(input.Key) {
-                    case ConsoleKey.A:
-                        TransactionsClass.addTransactions(walletId);
-                        break;
                     case ConsoleKey.L:
                         Snowbird.Logout();
                         break;
@@ -176,8 +171,11 @@ namespace Final_Test.Menus {
                         break;
 
                     case ConsoleKey.T:
-                        //Wallet.AddTransaction();
-                        TransactionsClass.addTransactions(walletId);
+                        TransactionsClass.AddTransaction(walletId, wallet);
+                        if(Snowbird.Login) {
+                            runThis = false;
+                            runMain = false;
+                        }
                         break;
                     default:
                         break;
@@ -186,11 +184,7 @@ namespace Final_Test.Menus {
             }
 
         }
-
-        public static void Transactions(DateTime date, int wallet, string walletId) {
-
-        }
-
+        
         /// <summary>
         /// Increase or decreases a DateTime's month (and year)
         /// </summary>
