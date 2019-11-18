@@ -160,7 +160,9 @@ namespace Final_Test.Menus {
                     else
                         Snowbird.WriteLine( "Expense", ConsoleColor.Red );
                 
-                    Console.Write( "\t\t- Transaction amount: " + amount );
+                    Console.WriteLine( "\t\t- Transaction amount: " + amount);
+
+                    Console.WriteLine( "\t\t. Description: " + description);
 
                     Console.Write("\n\tIs this correct? ("); /**/ Snowbird.Write("Y", ConsoleColor.Yellow); /**/ Console.Write("/"); /**/ Snowbird.Write("N", ConsoleColor.Yellow); /**/ Console.WriteLine(")");
                     Console.Write( "\n\n\t(" ); /**/ Snowbird.Write( "ESC", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); /**/ Snowbird.Write( "Go Back", ConsoleColor.Cyan );
