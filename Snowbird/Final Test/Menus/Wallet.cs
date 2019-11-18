@@ -194,10 +194,25 @@ namespace Final_Test.Menus
 
                         if(account_name != "!Q!") {
 
-                            account_number = "00000000" + rand.Next( 10000000, 100000000 ) + rand.Next( 10000000, 100000000 );
-                            good = true;
-                            runThis2 = false;
+                            Console.Write("\t- Account number (random if empty: )");
+                            account_number = Snowbird.GetNumbers();
 
+                            if(account_number != "!Q!" && account_number.Length == 24) {
+                                runThis = false;
+                            } else if(string.IsNullOrEmpty(account_number)) {
+                                account_number = "00000000" + rand.Next( 10000000, 100000000 ) + rand.Next( 10000000, 100000000 );
+                                good = true;
+                                runThis2 = false;
+                            } else if(account_number == "!Q!") {
+                                runThis2 = false;
+                                good = false;
+                            } else {
+                                good = true;
+                            }
+                            
+                        } else {
+                            good = false;
+                            runThis = false;
                         }
                         
                     } else {
