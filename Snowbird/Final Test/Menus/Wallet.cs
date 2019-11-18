@@ -308,7 +308,7 @@ namespace Final_Test.Menus
 
                             Snowbird.InsertWallet(type, amount, currency, account_name, account_number, description, myDateTime);
 
-                            Snowbird.InsertTransaction(Snowbird.user.Wallets[0][Snowbird.user.WalletCount - 1], 1, amount, account_name, account_number, description, myDateTime);
+                            Snowbird.InsertTransaction(Snowbird.user.Wallets[0][Snowbird.user.WalletCount - 1], 1, amount, account_name, account_number, "Initial amount", myDateTime);
 
                             runThis = false;
 
