@@ -301,38 +301,7 @@ VALUES(
 
 
 
-INSERT INTO `currencies`(`from`, `to`, `multiplier`, `updated`)
-VALUES(
-    'huf',
-    'eur',
-    '0.0030',
-    '2019-11-04 00:00:00'
-),(
-    'huf',
-    'usd',
-    '0.0034',
-    '2019-11-04 00:00:00'
-),(
-    'eur',
-    'huf',
-    '328.30',
-    '2019-11-04 00:00:00'
-),(
-    'eur',
-    'usd',
-    '1.12',
-    '2019-11-04 00:00:00'
-),(
-    'usd',
-    'huf',
-    '294.21',
-    '2019-11-04 00:00:00'
-),(
-    'usd',
-    'eur',
-    '0.90',
-    '2019-11-04 00:00:00'
-);
+ 
 
 
 INSERT INTO `transactions`(     -- Create test transaction for Wallet (id: 0)
