@@ -2,12 +2,14 @@ Snowbird ideas and to-do list
 
 To-do:
   - add transaction
-    - add income
-    - add expense
+    - add income                  (Done by Patrik, perfected by Ábel)
+    - add expense                 (Done by Patrik, perfected by Ábel)
     - add wallet transfer
     - add bank transfer
   - add currency conversion
   - add detailed view of transactions
+  - add import/export for user data
+  - make it possible to record transaction to another date, not just DateTime.Now
   - improve add wallet method     (Done by Ábel)
   - fix bug on create first wallet escape (FIXED by Ábel)
 
