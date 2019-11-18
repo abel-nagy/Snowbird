@@ -1,11 +1,15 @@
-﻿using System;
+﻿using MySql.Data.Types;
+
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Final_Test.Menus {
     
     public static class MainMenu {      // by Ábel
-        
+
+        static DateTime now = DateTime.Now;
+
         public static void Run() {
             
             while(!Snowbird.Login) {
@@ -39,7 +43,7 @@ namespace Final_Test.Menus {
 
                 Console.Write("\n\t("); /**/ Snowbird.Write("L", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Logout", ConsoleColor.Red);
                 Console.Write("\t("); /**/ Snowbird.Write("Q", ConsoleColor.Yellow); /**/ Console.Write(") "); Snowbird.WriteLine("Quit", ConsoleColor.Red);
-
+                
                 ConsoleKeyInfo input = Console.ReadKey(true);
                 switch (input.Key) {
                     case ConsoleKey.Q:
@@ -58,6 +62,7 @@ namespace Final_Test.Menus {
                         if (Regex.Match(inputString, "^[1-9]*$").Success) {
                             int choosenWallet = int.Parse( inputString );
                             if(choosenWallet <= Snowbird.user.WalletCount) {
+                                now = DateTime.Now;
                                 ShowWallet( (Snowbird.user.Wallets[0][choosenWallet - 1] ), choosenWallet - 1 );
                             }
                         }
@@ -71,7 +76,6 @@ namespace Final_Test.Menus {
         public static void ShowWallet(string walletId, int wallet) {
 
             bool runThis = true;
-            DateTime now = DateTime.Now;
 
             while (runThis) {
 
@@ -144,7 +148,9 @@ namespace Final_Test.Menus {
 
                 Console.WriteLine( " " + Snowbird.user.Wallets[4][wallet] );
 
-                Console.Write( "\n\n\t(" ); /**/ Snowbird.Write("T", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "  Add Transaction", ConsoleColor.Cyan);
+                Console.Write("\n\n\t("); /**/ Snowbird.Write("Enter", ConsoleColor.Yellow); /**/ Console.WriteLine(") Show details");
+
+                Console.Write( "\n\t(" ); /**/ Snowbird.Write("T", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "  Add Transaction", ConsoleColor.Cyan);
                 Console.Write( "\t(" ); /**/ Snowbird.Write("ESC", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "Go Back", ConsoleColor.Cyan);
                 Console.Write( "\n\t(" ); /**/ Snowbird.Write( "L", ConsoleColor.Yellow ); /**/  Console.Write( ") " ); Snowbird.WriteLine( "  Logout", ConsoleColor.Red );
                 Console.Write( "\t(" ); /**/ Snowbird.Write( "Q", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "  Quit", ConsoleColor.Red );
@@ -153,6 +159,8 @@ namespace Final_Test.Menus {
                 switch(input.Key) {
                     case ConsoleKey.L:
                         Snowbird.Logout();
+                        if(Snowbird.Login)
+                            runThis = false;
                         break;
                     case ConsoleKey.Q:
                         Snowbird.Exit();
@@ -174,6 +182,12 @@ namespace Final_Test.Menus {
                         now = ChangeMonth(now, false);
                         break;
 
+                    case ConsoleKey.Enter:
+                        ShowTransactions( walletId, wallet );
+                        if(Snowbird.Login)
+                            runThis = false;
+                        break;
+
                     case ConsoleKey.T:
                         TransactionsClass.AddTransaction(walletId, wallet);
                         if(Snowbird.Login)
@@ -186,7 +200,105 @@ namespace Final_Test.Menus {
             }
 
         }
-        
+
+        public static void ShowTransactions(string walletId, int wallet) {
+
+            bool runThis = true;
+
+            while(runThis) {
+
+                Console.Clear();
+                Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue); /**/ Console.WriteLine("!");
+
+                Console.Write( "\n\t\t\t\t\t\t" );
+
+                if (Snowbird.user.Wallets[2][wallet] == "0")
+                    Snowbird.WriteLine("Wallet", ConsoleColor.White, ConsoleColor.Cyan);
+                else {
+
+                    Snowbird.WriteLine( Snowbird.user.Wallets[5][wallet] + " - Account", ConsoleColor.White, ConsoleColor.Magenta );
+
+                }
+
+                if (!string.IsNullOrEmpty( Snowbird.user.Wallets[7][wallet]))
+                    Console.WriteLine( "\t\t\t\t\t\t({0})", Snowbird.user.Wallets[7][wallet]);
+
+
+                Console.Write( "\t\t\t\t\t\t     " ); /**/ Snowbird.WriteLine( now.Year + "-" + now.Month, ConsoleColor.Black, ConsoleColor.White);
+
+                Console.WriteLine("\n\t=============================================================");
+                Console.WriteLine("\t= Date  = Time  = Amount  = Description ");
+                Console.WriteLine("\t=============================================================");
+                Console.WriteLine("\t=                                                           =");
+                
+                for(int i = 0; i < Snowbird.user.TransactionCount; i++) {
+
+                    MySqlDateTime wrong = new MySqlDateTime( Snowbird.user.Transactions[7][i] );
+                    DateTime trans = new DateTime( wrong.Day, wrong.Month, wrong.Year, wrong.Hour, wrong.Minute, wrong.Second );
+
+                    if(trans.Month == now.Month && trans.Year == now.Year && Snowbird.user.Transactions[1][i] == walletId) {
+
+                        Console.Write( "\t= {0} = {1} = ", trans.Month + "-" + trans.Day, trans.Hour + ":" + trans.Minute );
+
+                        if(Snowbird.user.Transactions[2][i] == "1")
+                            Snowbird.Write("" + Snowbird.user.Transactions[3][i], ConsoleColor.Green);
+                        else
+                            Snowbird.Write( "-" + Snowbird.user.Transactions[3][i], ConsoleColor.Red );
+
+                        Console.WriteLine("\t" + Snowbird.user.Transactions[6][i]);
+
+                        Console.WriteLine("\t=============================================================");
+
+                    }
+
+                }
+
+
+                Console.Write( "\n\t(" ); /**/ Snowbird.Write("T", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "  Add Transaction", ConsoleColor.Cyan);
+                Console.Write( "\t(" ); /**/ Snowbird.Write("ESC", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "Go Back", ConsoleColor.Cyan);
+                Console.Write( "\n\t(" ); /**/ Snowbird.Write( "L", ConsoleColor.Yellow ); /**/  Console.Write( ") " ); Snowbird.WriteLine( "  Logout", ConsoleColor.Red );
+                Console.Write( "\t(" ); /**/ Snowbird.Write( "Q", ConsoleColor.Yellow ); /**/ Console.Write( ") " ); Snowbird.WriteLine( "  Quit", ConsoleColor.Red );
+
+                ConsoleKeyInfo input = Console.ReadKey( true );
+                switch(input.Key) {
+                    case ConsoleKey.L:
+                        Snowbird.Logout();
+                        if(Snowbird.Login)
+                            runThis = false;
+                        break;
+                    case ConsoleKey.Q:
+                        Snowbird.Exit();
+                        break;
+                    case ConsoleKey.Escape:
+                        runThis = false;
+                        break;
+
+                    case ConsoleKey.UpArrow:
+                        now = ChangeMonth( now, false );
+                        break;
+                    case ConsoleKey.DownArrow:
+                        now = ChangeMonth( now );
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        now = ChangeMonth( now );
+                        break;
+                    case ConsoleKey.RightArrow:
+                        now = ChangeMonth( now, false );
+                        break;
+                        
+                    case ConsoleKey.T:
+                        TransactionsClass.AddTransaction( walletId, wallet );
+                        if(Snowbird.Login)
+                            runThis = false;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+        }
+
         /// <summary>
         /// Increase or decreases a DateTime's month (and year)
         /// </summary>
