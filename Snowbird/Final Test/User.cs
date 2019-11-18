@@ -26,10 +26,10 @@ namespace Final_Test {
         /// Updates all user related info in program
         /// </summary>
         public void Update() {
-            Wallets      = Snowbird.db.Select( "SELECT * FROM wallets WHERE user_id='" + UserId + "' ORDER BY type;",
+            Wallets      = Snowbird.db.Select( "SELECT * FROM wallets WHERE user_id='" + UserId + "' ORDER BY created_at;",
                                                9,
                                                new string[9] { "id", "user_id", "type", "amount", "currency", "account_name", "account_number", "description", "created_at" } );
-            Transactions = Snowbird.db.Select( "SELECT * FROM transactions t LEFT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + UserId + "' ORDER BY t.id;",
+            Transactions = Snowbird.db.Select( "SELECT * FROM transactions t LEFT JOIN wallets w ON t.wallet_id=w.id WHERE user_id='" + UserId + "' ORDER BY t.created_at;",
                                                8,
                                                new string[8] { "id", "wallet_id", "type", "amount", "fromWalletId", "toWalletId", "description", "created_at" } );
 
