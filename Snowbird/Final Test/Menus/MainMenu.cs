@@ -5,11 +5,10 @@ using System.Text.RegularExpressions;
 namespace Final_Test.Menus {
     
     public static class MainMenu {      // by Ábel
-
-        static bool runMain = true;
+        
         public static void Run() {
             
-            while(runMain) {
+            while(!Snowbird.Login) {
                 
                 Console.Clear();
                 Console.Write("\n\t\t\t\t\t\tWelcome "); /**/ Snowbird.Write(Snowbird.user.Username, ConsoleColor.Blue); /**/ Console.WriteLine("!\n\n");
@@ -47,13 +46,10 @@ namespace Final_Test.Menus {
                         Snowbird.Exit();
                         break;
                     case ConsoleKey.L:
-                        runMain = false;
                         Snowbird.Logout();
                         break;
                     case ConsoleKey.N:
                         Wallet.AddWallet();
-                        if(Snowbird.Login)
-                            runMain = false;
                         break;
                     default:
                         string inputString = "";
@@ -121,24 +117,32 @@ namespace Final_Test.Menus {
 
                 amountMonthEnd = amountMonthBegin + incomeMonth - expenseMonth;
 
-                Snowbird.WriteLine("\n\t\tIncome:     " + incomeMonth, ConsoleColor.DarkGreen);
-                Snowbird.WriteLine("\t\tExpense:    " + expenseMonth, ConsoleColor.DarkRed);
+                Snowbird.Write("\n\t\tIncome:     " + incomeMonth, ConsoleColor.DarkGreen); /**/ Console.WriteLine(" " + Snowbird.user.Wallets[4][wallet]);
+                Snowbird.Write("\t\tExpense:    " + expenseMonth, ConsoleColor.DarkRed); /**/ Console.WriteLine(" " + Snowbird.user.Wallets[4][wallet]);
                 Snowbird.Write("\t\tNet income: ", ConsoleColor.DarkYellow);
+
                 if (incomeMonth - expenseMonth >= 0)
-                    Snowbird.WriteLine("" + (incomeMonth - expenseMonth), ConsoleColor.DarkGreen);
+                    Snowbird.Write("" + (incomeMonth - expenseMonth), ConsoleColor.DarkGreen);
                 else
-                    Snowbird.WriteLine("" + (incomeMonth - expenseMonth), ConsoleColor.DarkRed);
+                    Snowbird.Write("" + (incomeMonth - expenseMonth), ConsoleColor.DarkRed);
+
+                Console.WriteLine( " " + Snowbird.user.Wallets[4][wallet] );
 
                 Console.Write("\n\t\tMonth begin: ");
                 if (amountMonthBegin >= 0)
-                    Snowbird.WriteLine("" + amountMonthBegin, ConsoleColor.DarkGreen);
+                    Snowbird.Write("" + amountMonthBegin, ConsoleColor.DarkGreen);
                 else
-                    Snowbird.WriteLine("" + amountMonthBegin, ConsoleColor.DarkRed);
+                    Snowbird.Write("" + amountMonthBegin, ConsoleColor.DarkRed);
+
+                Console.WriteLine(" " + Snowbird.user.Wallets[4][wallet]);
+
                 Console.Write("\t\tMonth end:   ");
                 if (amountMonthEnd >= 0)
-                    Snowbird.WriteLine("" + amountMonthEnd, ConsoleColor.DarkGreen);
+                    Snowbird.Write("" + amountMonthEnd, ConsoleColor.DarkGreen);
                 else
-                    Snowbird.WriteLine("" + amountMonthEnd, ConsoleColor.DarkRed);
+                    Snowbird.Write("" + amountMonthEnd, ConsoleColor.DarkRed);
+
+                Console.WriteLine( " " + Snowbird.user.Wallets[4][wallet] );
 
                 Console.Write( "\n\n\t(" ); /**/ Snowbird.Write("T", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "  Add Transaction", ConsoleColor.Cyan);
                 Console.Write( "\t(" ); /**/ Snowbird.Write("ESC", ConsoleColor.Yellow); /**/ Console.Write(") "); /**/ Snowbird.WriteLine( "Go Back", ConsoleColor.Cyan);
@@ -172,10 +176,8 @@ namespace Final_Test.Menus {
 
                     case ConsoleKey.T:
                         TransactionsClass.AddTransaction(walletId, wallet);
-                        if(Snowbird.Login) {
+                        if(Snowbird.Login)
                             runThis = false;
-                            runMain = false;
-                        }
                         break;
                     default:
                         break;
