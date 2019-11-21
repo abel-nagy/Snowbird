@@ -1,0 +1,15 @@
+S:\Projects\GitHub\Snowbird\Snowbird\bin\Debug\Snowbird.exe.config
+S:\Projects\GitHub\Snowbird\Snowbird\bin\Debug\Snowbird.exe
+S:\Projects\GitHub\Snowbird\Snowbird\bin\Debug\Snowbird.pdb
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\Snowbird.csprojAssemblyReference.cache
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\App.g.cs
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\Snowbird_MarkupCompile.cache
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\Snowbird_MarkupCompile.lref
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\Snowbird.g.resources
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\Snowbird.Properties.Resources.resources
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\Snowbird.csproj.GenerateResource.cache
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\Snowbird.exe
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\Snowbird.pdb
+S:\Projects\GitHub\Snowbird\Snowbird\bin\Debug\Snowbird.xml
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\MainWindow.g.cs
+S:\Projects\GitHub\Snowbird\Snowbird\obj\Debug\MainWindow.baml
