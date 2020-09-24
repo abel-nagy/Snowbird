@@ -7,9 +7,9 @@ INSERT INTO `users`(        -- Create User (password: asdasd) (id: 0)
 )
 VALUES(
     NULL,
-    'nagyabe99@gmail.com',
-    'sens1tiv',
-    '5fd924625f6ab16a19cc9807c7c506ae1813490e4ba675f843d5a10e0baacdb8',
+    '',
+    '',
+    '',
     '2019-11-04 10:43:31'
 );
 INSERT INTO `wallets`(       -- Create Wallet       (id: 0)
@@ -71,7 +71,7 @@ VALUES(
     '1',
     '1000',
     'eur',
-    'Nagy Ábel',
+    '',
     '000000001234567812345678',
     'Saját bankszámla',
     '2019-11-14 09:48:00'
@@ -113,7 +113,7 @@ VALUES(
     '1',
     '8429',
     'usd',
-    'KSZC Széchenyi',
+    '',
     '987654329876543212345678',
     'Munkahelyi',
     '2019-11-15 15:32:49'
@@ -150,9 +150,9 @@ INSERT INTO `users`(            -- Create User (password: 123456) (id: 1)
 )
 VALUES(
     NULL,
-    'adam.patrik.sztk@gmail.com',
-    'adampatrik',
-    '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',
+    '',
+    '',
+    '',
     '2019-11-09 16:11:49'
 );
 INSERT INTO `wallets`(          -- Create Wallet       (id: 3)
@@ -214,7 +214,7 @@ VALUES(
     '1',
     '84000',
     'huf',
-    'Ádám Patrik',
+    '',
     '000000002345678923456789',
     'Saját',
     '2019-11-15 15:32:49'
@@ -251,9 +251,9 @@ INSERT INTO `users`(            -- Create User (password: chris) (id: 2)
 )
 VALUES(
     NULL,
-    'csamango.krisztian@gmail.com',
-    'csamchris',
-    '5d7f15f2fce8ddb2dbef5c38be896c238ba7e0a432e396759030a853fa6b1151',
+    '',
+    '',
+    '',
     '2019-11-12 04:20:55'
 );
 INSERT INTO `wallets`(          -- Create test Account       (id: 5)
